@@ -1,0 +1,12 @@
+<div #modalDialog class="modal dialog">
+	<div class="modal-header">
+		<h4 class="modal-title">{{ title }}</h4>
+	</div>
+	<div class="modal-content">
+		<p>{{ message }}</p>
+	</div>
+	<div class="modal-footer">
+		<a (click)="cancel()" class="btn modal-close waves-effect white grey-text text-darken-3 square">Cancelar</a>
+		<a (click)="confirm()" class="btn modal-close waves-effect red square">Confirmar</a>
+	</div>
+</div>

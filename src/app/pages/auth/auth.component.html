@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col s12">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m6 l4 offset-l4 mt-3">
+					<div class="card rounded transparent">
+						<div class="card-header pb-0">
+							<div class="material-symbols-outlined logo">apartment</div>
+							<h1 class="card-title center-align bold white-text">Residencial Ilha Bela</h1>
+							<div class="card-subtitle center-align">Portal de Transparência</div>
+						</div>
+					</div>
+					<x-form [formGroup]="formGroup">
+						<div card-content #cardContent>
+							<div class="row">
+								<div class="col s12">
+									<div class="input-field square" [class.error]="formGroup.get('username')?.invalid && formGroup.get('username')?.touched">
+										<label for="username">Usuário</label>
+										<input type="text" id="username" formControlName="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<div class="input-field square" [class.error]="formGroup.get('password')?.invalid && formGroup.get('password')?.touched">
+										<label for="password">Senha</label>
+										<input type="password" id="password" formControlName="password" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<div class="input-field">
+										<button type="submit" class="btn expanded square blue lighten-1 waves-effect" [disabled]="formGroup.invalid">Login</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</x-form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 center-align">
+					<p class="grey-text text-darken-1 mt-3">Acesso restrito aos proprietários</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

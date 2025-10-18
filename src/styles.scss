@@ -1,0 +1,522 @@
+@import '../public/assets/css/animate.css';
+@import '../public/assets/css/colors.css';
+@import '../public/assets/css/materialize.css';
+
+* {
+	letter-spacing: 0.5pt
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	background-color: #020617;
+	color: #fff;
+}
+
+body {
+	overflow: hidden;
+}
+
+main {
+	height: calc(100vh - 64px);
+	overflow: hidden;
+}
+
+.btn {
+	gap: 5px;
+}
+
+.btn-flat {
+	width: 40px;
+	height: 40px;
+	padding: 0 10px;
+	line-height: 16px;
+	border-radius: 5px;
+}
+
+.btn-flat:focus,
+.btn-flat:hover {
+	background-color: inherit;
+}
+
+.btn-flat i.material-symbols-outlined {
+	font-size: 24px;
+	line-height: 24px;
+}
+
+.grey-border {
+	border-color: #334155 !important;
+}
+
+.navbar-color {
+	background-color: #0f172a;
+}
+
+header,
+.navbar-main,
+.navbar-list a,
+.navbar-list button {
+	height: 56px;
+	min-height: 54px;
+	line-height: 54px;
+}
+
+.navbar-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+}
+
+nav .nav-wrapper {
+	position: relative;
+	height: 100%;
+	padding: 0 45px;
+}
+
+nav .brand-logo {
+	width: auto;
+	height: 40px;
+	margin: 8px 0;
+	display: flex;
+}
+
+.brand-logo .logo {
+	width: 40px;
+	height: 40px;
+	font-size: 24px;
+	border-radius: 10px;
+}
+
+.brand-logo .logo-text {
+	font-size: 18px;
+	color: #fff;
+	margin: 0;
+	margin-left: 15px !important;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	place-content: center !important;
+	line-height: 18px;
+}
+
+.logo-text span,
+.logo-text small {
+	margin: 0;
+	padding: 0;
+	line-height: 1.2;
+}
+
+.logo-text span {
+	font-weight: 500;
+}
+
+.logo-text small {
+	// font-size: 14px;
+	font-weight: 400;
+}
+
+.navbar-list {
+	float: right;
+}
+
+.navbar-list a,
+.navbar-list button {
+	box-shadow: none;
+	border-radius: 0;
+}
+
+
+.navbar-list a,
+.navbar-list button,
+.navbar-list a:focus,
+.navbar-list button:focus {
+	background-color: transparent;
+}
+
+.navbar-list a:hover,
+.navbar-list button:hover {
+	background-color: #1e293b;
+}
+
+.container {
+	position: relative;
+	padding: 24px;
+}
+
+.card {
+	position: relative;
+	background-color: #1e293b;
+}
+
+.card-header .card-subtitle {
+	margin: 10px 0 16px;
+	color: #94a3b8;
+}
+
+.input-field.square:not(.browser-default) input:not([type]),
+.input-field.rounded:not(.browser-default) input:not([type]),
+.input-field.square:not(.browser-default) input[type=text]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=text]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=password]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=password]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=email]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=email]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=url]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=url]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=time]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=time]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=date]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=date]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=datetime]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=datetime]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=datetime-local]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=datetime-local]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=tel]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=tel]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=number]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=number]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=search]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=search]:not(.browser-default),
+.input-field.square:not(.browser-default) textarea:not(.browser-default),
+.input-field.rounded:not(.browser-default) textarea:not(.browser-default),
+.input-field.square:not(.browser-default) textarea.materialize-textarea:not(.browser-default),
+.input-field.rounded:not(.browser-default) textarea.materialize-textarea:not(.browser-default),
+.input-field.square:not(.browser-default) .ql-container,
+.input-field.rounded:not(.browser-default) .ql-container,
+.input-field.square:not(.browser-default) select,
+.input-field.rounded:not(.browser-default) select,
+.input-field.square:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown,
+.input-field.rounded:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown,
+.input-field.square:not(.browser-default) .chips,
+.input-field.rounded:not(.browser-default) .chips,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--multiple,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--multiple,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--single,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--single,
+.input-field.square:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple,
+.input-field.rounded:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: 1px solid #334155 !important;
+	color: #fff;
+}
+
+
+.input-field.rounded input:not([type]):focus:not([readonly]),
+.input-field.square input:not([type]):focus:not([readonly]),
+.input-field.rounded input[type=text]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=text]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=password]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=password]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=email]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=email]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=url]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=url]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=time]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=time]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=date]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=date]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=datetime]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=datetime]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=tel]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=tel]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=number]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=number]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded input[type=search]:not(.browser-default):focus:not([readonly]),
+.input-field.square input[type=search]:not(.browser-default):focus:not([readonly]),
+.input-field.rounded textarea.materialize-textarea:focus:not([readonly]),
+.input-field.square textarea.materialize-textarea:focus:not([readonly]),
+.input-field.rounded:not(.browser-default) .ql-container:focus,
+.input-field.square:not(.browser-default) .ql-container:focus,
+.input-field.rounded:not(.browser-default) select:focus,
+.input-field.square:not(.browser-default) select:focus,
+.input-field.rounded:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown:focus,
+.input-field.square:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown:focus,
+.input-field.rounded:not(.browser-default) .chips:focus,
+.input-field.square:not(.browser-default) .chips:focus,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--multiple:focus,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--multiple:focus,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--single:focus,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--single:focus,
+.input-field.rounded:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple:focus,
+.input-field.square:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple:focus {
+	border: 1px solid #00bcd4 !important;
+}
+
+label {
+	color: #fff;
+}
+
+.input-field.square label.active::before,
+.input-field.rounded label.active::before {
+	background-color: #1e293b;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	place-content: center;
+	font-size: 3rem;
+	text-align: center;
+	background: var(--gradient-45deg-indigo-light-blue);
+	border-radius: 15px;
+	padding: 10px;
+	margin: auto;
+	width: 70px;
+	height: 70px;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #334155;
+	border-radius: 10px;
+}
+
+.card-stats .card-stats-title {
+	color: #fff;
+	display: flex;
+	align-items: center;
+	place-content: space-between;
+	margin: 0;
+}
+
+.card-stats .card-stats-title .card-title,
+.card-stats .card-stats-title .material-symbols-outlined {
+	color: inherit;
+}
+
+.card-stats .card-content .card-title {
+	font-weight: 500 !important;
+	margin: 0;
+	display: flex;
+}
+
+.card-stats .card-content .card-stats-number {
+	margin: 10px 0;
+	line-height: 24px;
+	font-size: 24px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.card-stats .card-content .card-stats-compare {
+	display: flex;
+	align-items: center;
+	place-content: start;
+	font-size: 13px;
+	gap: 10px;
+}
+
+.card .card-title {
+	color: #fff;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table th,
+table td {
+	border-radius: 0;
+}
+
+table thead tr,
+table tbody tr {
+	border-bottom: 1px solid #334155;
+}
+
+table thead tr,
+table tr:nth-child(even) {
+	background-color: #020617;
+}
+
+table tbody tr:last-child {
+	border: none;
+}
+
+table th:first-child,
+table td:first-child {
+	padding-left: 24px;
+}
+
+table th:first-child,
+table td:first-child {
+	padding-right: 24px;
+}
+
+table tr .btn {
+	width: 32px;
+	height: 32px;
+	margin: 0 10px;
+}
+
+#col-right,
+#col-left {
+	// overflow-y: auto;
+	overflow: hidden;
+	height: calc(100vh - 120px);
+}
+
+#col-left {
+	overflow-y: auto;
+}
+
+.dropdown-content {
+	min-width: 150px;
+	border-color: #334155;
+}
+
+.dropdown-content li a {
+	color: #cbd5e1;
+}
+
+.dropdown-content li a:hover {
+	background-color: #1e293b;
+}
+
+.modal,
+.modal .card,
+.dropdown-content,
+.modal .modal-footer {
+	border-radius: 10px;
+	background-color: #0f172a;
+}
+
+.modal .modal-header {
+	padding: 0 24px;
+	border-radius: 0;
+	border-bottom: 1px solid #334155;
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal .modal-header .modal-title {
+	margin: 0;
+}
+
+.modal .modal-footer {
+	padding: 0 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 70px;
+	border-top: 1px solid #334155;
+	border-radius: 0;
+}
+
+button[type="reset"] {
+	background-color: #1e293b;
+	border-color: #334155;
+	color: #cbd5e1;
+}
+
+button[type="reset"]:hover {
+	border-color: #334155;
+	background-color: #334155;
+	color: #cbd5e1;
+}
+
+.input-field.square:not(.browser-default) input:not([type]),
+.input-field.rounded:not(.browser-default) input:not([type]),
+.input-field.square:not(.browser-default) input[type=text]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=text]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=password]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=password]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=email]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=email]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=url]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=url]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=time]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=time]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=date]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=date]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=datetime]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=datetime]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=datetime-local]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=datetime-local]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=tel]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=tel]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=number]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=number]:not(.browser-default),
+.input-field.square:not(.browser-default) input[type=search]:not(.browser-default),
+.input-field.rounded:not(.browser-default) input[type=search]:not(.browser-default),
+.input-field.square:not(.browser-default) textarea:not(.browser-default),
+.input-field.rounded:not(.browser-default) textarea:not(.browser-default),
+.input-field.square:not(.browser-default) textarea.materialize-textarea:not(.browser-default),
+.input-field.rounded:not(.browser-default) textarea.materialize-textarea:not(.browser-default),
+.input-field.square:not(.browser-default) .ql-container,
+.input-field.rounded:not(.browser-default) .ql-container,
+.input-field.square:not(.browser-default) select,
+.input-field.rounded:not(.browser-default) select,
+.input-field.square:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown,
+.input-field.rounded:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown,
+.input-field.square:not(.browser-default) .chips,
+.input-field.rounded:not(.browser-default) .chips,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--multiple,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--multiple,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--single,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--single,
+.input-field.square:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple,
+.input-field.rounded:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple,
+.input-field.square:not(.browser-default) input:not([type]):focus,
+.input-field.rounded:not(.browser-default) input:not([type]):focus,
+.input-field.square:not(.browser-default) input[type=text]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=text]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=password]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=password]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=email]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=email]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=url]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=url]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=time]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=time]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=date]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=date]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=datetime]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=datetime]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=datetime-local]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=datetime-local]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=tel]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=tel]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=number]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=number]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) input[type=search]:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) input[type=search]:not(.browser-default):focus,
+.input-field.square:not(.browser-default) textarea:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) textarea:not(.browser-default):focus,
+.input-field.square:not(.browser-default) textarea.materialize-textarea:not(.browser-default):focus,
+.input-field.rounded:not(.browser-default) textarea.materialize-textarea:not(.browser-default):focus,
+.input-field.square:not(.browser-default) .ql-container:focus,
+.input-field.rounded:not(.browser-default) .ql-container:focus,
+.input-field.square:not(.browser-default) select:focus,
+.input-field.rounded:not(.browser-default) select:focus,
+.input-field.square:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown:focus,
+.input-field.rounded:not(.browser-default) .select-wrapper:not(.browser-default) input.select-dropdown:focus,
+.input-field.square:not(.browser-default) .chips:focus,
+.input-field.rounded:not(.browser-default) .chips:focus,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--multiple:focus,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--multiple:focus,
+.input-field.square:not(.browser-default) .select2-container--default .select2-selection--single:focus,
+.input-field.rounded:not(.browser-default) .select2-container--default .select2-selection--single:focus,
+.input-field.square:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple:focus,
+.input-field.rounded:not(.browser-default) .select2-container--default.select2-container--focus .select2-selection--multiple:focus {
+	background: #1e293b !important;
+}
+
+.input-field.square label.active::before,
+.input-field.rounded label.active::before {
+	background-color: #0f172a;
+}

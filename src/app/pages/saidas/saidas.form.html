@@ -1,0 +1,45 @@
+<div #formSaidas class="modal">
+	<div class="modal-content no-padding">
+		<x-form [formGroup]="formGroup" [title]="formTitle">
+			<div card-content>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<label for="descricao">Descrição</label>
+							<input type="text" id="descricao" formControlName="descricao">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<label for="valor">Valor (R$)</label>
+							<input type="text" id="valor" formControlName="valor" appMask="decimal">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<label for="data_vencimento">Data</label>
+							<input type="text" id="data_vencimento" formControlName="data_vencimento" datepicker>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<button type="reset" class="btn square waves-effect modal-close" (click)="resetForm()">
+								<i class="material-symbols-outlined">cancel</i>
+							</button>
+							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue">
+								<i class="material-symbols-outlined">save</i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</x-form>
+	</div>
+</div>
+<x-dialog />

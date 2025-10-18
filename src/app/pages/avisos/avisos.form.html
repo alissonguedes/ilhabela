@@ -1,0 +1,49 @@
+<div #modalAvisos id="form-avisos" class="modal">
+	<div class="modal-content no-padding">
+		<x-form [formGroup]="formGroup" [title]="formTitle">
+			<div card-content #cardContent>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<label for="assunto">Assunto</label>
+							<input type="text" id="assunto" formControlName="assunto">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<label for="texto">Mensagem</label>
+							<textarea id="texto" formControlName="texto" class="materialize-textarea"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<label for="status">Publicar?</label>
+						<div class="switch">
+							<label>
+								Não
+								<input type="checkbox" id="status" formControlName="status">
+								<span class="lever"></span>
+								Sim
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="input-field square">
+							<button type="reset" class="btn square waves-effect modal-close" (click)="resetForm()">
+								<i class="material-symbols-outlined">cancel</i>
+							</button>
+							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue">
+								<i class="material-symbols-outlined">save</i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</x-form>
+	</div>
+</div>

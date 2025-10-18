@@ -1,0 +1,79 @@
+#avisos {
+	overflow: hidden;
+}
+
+#avisos .card-header .card-title {
+	border-bottom: 1px solid #334155;
+	margin: 0;
+	font-size: 24px;
+	font-weight: 500;
+	padding-bottom: 0px;
+	display: flex;
+	align-items: center;
+	place-content: space-between;
+}
+
+#avisos .card-title h4 {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	color: #fff;
+	font-size: 24px;
+	font-weight: 500;
+}
+
+#avisos .card-title .btn {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	padding: 0;
+}
+
+#avisos .card-content {
+	max-height: calc(100vh - 235px);
+	overflow: auto;
+}
+
+#avisos .card-content h4.titulo-post {
+	margin: 0 0 10px;
+	font-size: 20px;
+	color: #fff;
+	font-weight: 500;
+}
+
+#avisos .card-content p.texto-post {
+	margin: 0;
+	font-size: 14px;
+	color: #cbd5e1;
+	line-height: 1.5;
+}
+
+#avisos .card-content p.data-post {
+	color: #64748b;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+#avisos .card-content .aviso .card-content {
+	padding: 15px 15px 0;
+}
+
+#avisos .card-action {
+	border: none;
+	padding-top: 0;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+	display: flex;
+	place-content: space-between;
+	align-items: center;
+}
+
+#avisos .aviso .card {
+	overflow: initial;
+	border-radius: 10px;
+}
+
+#avisos .aviso .card-action {
+	border-radius: inherit;
+}

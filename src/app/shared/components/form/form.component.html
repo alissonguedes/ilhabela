@@ -1,0 +1,34 @@
+<div id="formulario" #formulario>
+
+	<form [formGroup]="formGroup" (ngSubmit)="submitForm()" autocomplete="off" autofill="off">
+
+		<div class="card">
+
+			<div class="card-header" *ngIf="hasHeader || title">
+				<ng-container *ngIf="hasHeader; else defaultHeader">
+					<ng-content select="[card-header]"></ng-content>
+				</ng-container>
+				<ng-template #defaultHeader>
+					<h4 class="card-title" *ngIf="title">{{ title }}</h4>
+				</ng-template>
+			</div>
+
+			<div class="card-content">
+				<ng-content select="[card-content]"></ng-content>
+			</div>
+
+			<div class="card-action right-align" *ngIf="hasAction">
+				<ng-container *ngIf="hasAction; else defaultAction">
+					<ng-content select="[card-action]"></ng-content>
+				</ng-container>
+				<ng-template #defaultAction>
+					<button type="reset" class="btn grey lighten-1" (click)="resetForm()">{{ labelReset }}</button>
+					<button type="submit" class="btn blue" [disabled]="formGroup.invalid">{{ labelSubmit }}</button>
+				</ng-template>
+			</div>
+
+		</div>
+
+	</form>
+
+</div>
