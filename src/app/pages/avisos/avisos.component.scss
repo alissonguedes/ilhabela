@@ -34,6 +34,14 @@
 	overflow: auto;
 }
 
+@media (max-width: 992px) {
+
+	#avisos .card-content {
+		max-height: 100%;
+	}
+
+}
+
 #avisos .card-content h4.titulo-post {
 	margin: 0 0 10px;
 	font-size: 20px;

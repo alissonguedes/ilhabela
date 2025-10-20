@@ -520,3 +520,35 @@ button[type="reset"]:hover {
 .input-field.rounded label.active::before {
 	background-color: #0f172a;
 }
+
+@media (max-width: 992px) {
+
+	body,
+	main {
+		height: auto;
+		overflow: auto;
+	}
+
+	nav .brand-logo {
+		left: 20px;
+		-webkit-transform: translateX(0%);
+		transform: translateX(0%);
+	}
+
+	nav .nav-wrapper {
+		position: relative;
+		height: 100%;
+		padding: 0px;
+	}
+
+	#col-right,
+	#col-left {
+		height: auto;
+		overflow: unset;
+	}
+
+	.container {
+		padding: 10px 0;
+	}
+
+}

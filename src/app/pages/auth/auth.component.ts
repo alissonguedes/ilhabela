@@ -31,10 +31,10 @@ export class AuthComponent extends Form implements OnInit, IFormComponent {
 
   formGroup = this.formBuilder.group({
     username: [
-      'usuarioteste@email.com',
+      'alissonguedes87@gmail.com',
       [Validators.required, Validators.email],
     ],
-    password: ['teste123', [Validators.required, Validators.minLength(6)]],
+    password: ['admin123', [Validators.required, Validators.minLength(6)]],
   });
 
   ngOnInit() {

@@ -21,7 +21,7 @@ export class AuthService extends HttpService {
       },
       error: (error: any) => {
         console.error('There was an error!', error);
-        M.toast({ html: 'Auth ou senha inválidos!' });
+        M.toast({ html: 'Usuário ou senha inválidos!' });
         localStorage.clear();
       },
     });

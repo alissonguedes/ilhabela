@@ -13,12 +13,18 @@ import { BehaviorSubject } from 'rxjs';
 
 import { EntradasForm } from './entradas.form';
 import { TransactionsService } from '../../services/transactions/transactions.service';
+import { CurrencyFormatPipe } from '../../shared/pipes/currency-format.pipe';
 
 declare const M: any;
 
 @Component({
   selector: 'app-entradas',
-  imports: [CommonModule, ReactiveFormsModule, EntradasForm],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    EntradasForm,
+    CurrencyFormatPipe,
+  ],
   templateUrl: './entradas.component.html',
   styleUrl: './entradas.component.scss',
 })

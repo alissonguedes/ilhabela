@@ -3,9 +3,9 @@
 		<div class="card square border grey-border">
 			<div class="card-header flex flex-center space-between">
 				<h4 class="card-title no-margin white-text">Entradas</h4>
-				<button class="btn square blue waves-effect" (click)="entradasForm.openForm()">
+				<button class="btn btn-small square blue waves-effect" (click)="entradasForm.openForm()">
 					<i class="material-symbols-outlined">add</i>
-					Adicionar Entrada
+					<span class="hide-on-small-only">Adicionar Entrada</span>
 				</button>
 			</div>
 			<div class="card-content no-padding">
@@ -23,7 +23,7 @@
 							<tr *ngFor="let entrada of (entradas$ | async)">
 								<td class="center-align">{{ entrada.data_vencimento.toString().substring(0, 10).split('-').reverse().join('/') }}</td>
 								<td class="left-align">{{ entrada.descricao }}</td>
-								<td class="center-align">{{ entrada.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) }}</td>
+								<td class="center-align">R$ {{ entrada.valor | currencyFormat }}</td>
 								<td class="acoes center-align">
 									<button type="button" class="btn btn-small rounded waves-effect modal-close blue" (click)="entradasForm.edit(entrada.id)">
 										<i class="material-symbols-outlined">edit_square</i>

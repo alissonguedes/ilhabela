@@ -6,8 +6,8 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, formatCurrency } from '@angular/common';
 
 import { Form } from '../../shared/components/form/form';
 import {
@@ -20,7 +20,9 @@ import { EntradasComponent } from './entradas.component';
 import { TransactionsService } from '../../services/transactions/transactions.service';
 import { DialogComponent } from '../../shared/components/dialog/dialog.component';
 import { DatepickerDirective } from '../../shared/directives/datepicker/datepicker.directive';
+// import { MaskDirective } from '../../shared/directives/mask/mask.directive';
 import { MaskDirective } from '../../shared/directives/mask/mask.directive';
+import { CurrencyFormatPipe } from '../../shared/pipes/currency-format.pipe';
 
 declare const M: any;
 
@@ -46,24 +48,28 @@ export class EntradasForm extends Form implements IFormComponent {
 
   formTitle: string = '';
   isUpdate = signal(false);
+  submited = signal(false);
 
   formGroup = this.formBuilder.group({
     id: ['', { disabled: true }],
-    tipo: ['receber', []],
-    descricao: ['', {}],
-    valor: ['', {}],
-    data_vencimento: ['', {}],
+    tipo: ['receber'],
+    descricao: ['', [Validators.required]],
+    valor: ['', [Validators.required]],
+    data_vencimento: ['', [Validators.required]],
     status: ['pendente', []],
   });
 
   edit(id: number) {
     const data = this.entradas$.value.find((item) => item.id === id);
     if (data) {
-      data.valor = data.valor.toLocaleString('pt-BR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
+      this.formGroup.patchValue({
+        ...data,
+        valor: (data.valor ?? 0).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }),
       });
-      this.formGroup.patchValue(data);
+      //   this.formGroup.patchValue(data);
       this.isUpdate.set(true);
       this.openForm();
       M.updateTextFields();
@@ -83,12 +89,11 @@ export class EntradasForm extends Form implements IFormComponent {
           const valuesBkp = [...this.entradas$.value];
           const filtrados = valuesBkp.filter((item) => item.id !== id);
 
-          this.entradas$.next(filtrados);
-
           this.transactionsService.remove(id).subscribe({
             next: (response: any) => {
               M.toast({ html: response.message });
               this.transactionsService.notifyRefresh();
+              this.entradas$.next(filtrados);
             },
             error: (error: any) => {
               this.entradas$.next(valuesBkp);
@@ -116,6 +121,7 @@ export class EntradasForm extends Form implements IFormComponent {
 
   resetForm(): void {
     this.isUpdate.set(false);
+    this.submited.set(false);
     this.formGroup.get('tipo')?.setValue('receber');
     this.formGroup.get('descricao')?.setValue(null);
     this.formGroup.get('data_vencimento')?.setValue(null);
@@ -126,6 +132,7 @@ export class EntradasForm extends Form implements IFormComponent {
   }
 
   submitForm(data?: any): void {
+    this.submited.set(true);
     const values = { ...data };
     const id = values.id || null;
     delete values.id;

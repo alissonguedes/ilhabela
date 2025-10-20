@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 })
 export class HttpService {
   private API_TOKEN = '';
-  //   private baseUrl = 'https://accounter.com.br/api/v3';
-  private baseUrl = 'http://localhost/cliniccloud-v3/api-v3/public/api/v3';
-  //   private baseUrl = 'http://localhost/controle-financeiro-v3/api-v3/public/api/v3';
+  private baseUrl = 'https://ilhabela.fstrongart.com.br/api/v3';
+  // private baseUrl = 'http://localhost/cliniccloud-v3/api-v3/public/api/v3';
+  // private baseUrl = 'http://localhost/controle-financeiro-v3/api-v3/public/api/v3';
   private userId = localStorage.getItem('id');
 
   constructor(private http: HttpClient, protected route: Router) {}

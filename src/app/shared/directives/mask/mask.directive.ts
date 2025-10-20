@@ -11,10 +11,10 @@ import { NgControl } from '@angular/forms'; // Importar NgControl
 import { MaskService } from './mask.service'; // Assumindo que o serviço está no mesmo diretório
 
 @Directive({
-  selector: '[appMask]', // Uso: <input type="text" appMask="cpf">
+  selector: '[mask]', // Uso: <input type="text" mask="cpf">
 })
 export class MaskDirective implements OnInit {
-  @Input('appMask') maskType: string | boolean | undefined = 'string'; // O tipo de máscara a ser aplicada
+  @Input('mask') maskType: string | boolean | undefined = 'string'; // O tipo de máscara a ser aplicada
 
   private inputElement: HTMLInputElement;
 
@@ -93,13 +93,7 @@ export class MaskDirective implements OnInit {
   onInput(value: string): void {
     if (this.maskType !== 'decimal') {
       this.applyMask(value);
-      // O evento 'input' é disparado automaticamente e atualiza o NgModel
-    }
-  }
-
-  @HostListener('keyup')
-  onKeyUp(): void {
-    if (this.maskType === 'decimal') {
+    } else {
       const maskedValue = this.maskService.masker.decimal(
         this.inputElement.value
       );

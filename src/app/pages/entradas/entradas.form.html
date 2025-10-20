@@ -14,7 +14,7 @@
 					<div class="col s12">
 						<div class="input-field square">
 							<label for="valor">Valor (R$)</label>
-							<input type="text" id="valor" formControlName="valor" appMask="decimal">
+							<input type="text" id="valor" formControlName="valor" mask="decimal">
 						</div>
 					</div>
 				</div>
@@ -32,7 +32,7 @@
 							<button type="reset" class="btn square waves-effect modal-close" (click)="resetForm()">
 								<i class="material-symbols-outlined">cancel</i>
 							</button>
-							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue">
+							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue" [disabled]="formGroup.invalid">
 								<i class="material-symbols-outlined">save</i>
 							</button>
 						</div>

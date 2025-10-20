@@ -25,10 +25,18 @@
 						],
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
+
+						// ⚙️ Adicionado para evitar erro de inlining de fontes
+						"optimization": {
+							"fonts": {
+								"inline": false
+							}
+						},
+
 						"assets": [
 							{
 								"glob": "**/*",
-								"input": "public/assets"
+								"input": "public"
 							}
 						],
 						"styles": [
@@ -88,7 +96,7 @@
 						"assets": [
 							{
 								"glob": "**/*",
-								"input": "public/assets"
+								"input": "public"
 							}
 						],
 						"styles": [
