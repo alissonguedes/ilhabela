@@ -44,9 +44,6 @@ export class DatepickerDirective
     this.options = {
       format: this.format,
       i18n: {
-        cancel: 'Cancelar',
-        clear: 'Limpar',
-        done: 'Ok',
         months: [
           'Janeiro',
           'Fevereiro',
@@ -86,11 +83,16 @@ export class DatepickerDirective
         ],
         weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
         weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+        previousMonth: '<i class="material-symbols-outlined">keyboard_arrow_left</i>',
+        nextMonth: '<i class="material-symbols-outlined">keyboard_arrow_right</i>',
+        cancel: '<i class="material-symbols-outlined">cancel</i>',
+        clear: '<i class="material-symbols-outlined">backspace</i>',
+        done: '<i class="material-symbols-outlined">done</i>',
       },
       setDefaultDate: false,
-      defaultDate: this.el?.nativeElement.value
-        ? new Date(this.el?.nativeElement.value.split('/').reverse().join('-'))
-        : null,
+    //   defaultDate: this.el?.nativeElement.value
+    //     ? new Date(this.el?.nativeElement.value.split('/').reverse().join('-'))
+    //     : null,
       selectMonths: this.selectMonths,
       selectYears: 15,
       container: 'body',

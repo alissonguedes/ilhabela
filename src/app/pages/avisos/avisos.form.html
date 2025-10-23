@@ -4,17 +4,23 @@
 			<div card-content #cardContent>
 				<div class="row">
 					<div class="col s12">
-						<div class="input-field square">
+						<div class="input-field square" [class]="formGroup.get('assunto')?.touched && formGroup.get('assunto')?.errors?.['required']? 'error' : null">
 							<label for="assunto">Assunto</label>
 							<input type="text" id="assunto" formControlName="assunto">
+							<div class="error" *ngIf="formGroup.get('assunto')?.touched && formGroup.get('assunto')?.errors?.['required']">
+								Campo obrigatório!
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s12">
-						<div class="input-field square">
+						<div class="input-field square" [class]="formGroup.get('texto')?.touched && formGroup.get('texto')?.errors?.['required']? 'error' : null">
 							<label for="texto">Mensagem</label>
 							<textarea id="texto" formControlName="texto" class="materialize-textarea"></textarea>
+							<div class="error" *ngIf="formGroup.get('texto')?.touched && formGroup.get('texto')?.errors?.['required']">
+								Campo obrigatório!
+							</div>
 						</div>
 					</div>
 				</div>
@@ -37,7 +43,7 @@
 							<button type="reset" class="btn square waves-effect modal-close" (click)="resetForm()">
 								<i class="material-symbols-outlined">cancel</i>
 							</button>
-							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue">
+							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue" [disabled]="this.formGroup.invalid || isSubmitting()">
 								<i class="material-symbols-outlined">save</i>
 							</button>
 						</div>

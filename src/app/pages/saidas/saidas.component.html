@@ -2,7 +2,10 @@
 	<div class="col s12">
 		<div class="card square border grey-border">
 			<div class="card-header flex flex-center space-between">
-				<h4 class="card-title no-margin white-text">Saidas</h4>
+				<h4 class="card-title no-margin red-text text-darken-2 flex flex-center gap-10">
+					<i class="material-symbols-outlined">upload</i>
+					<span>Saidas</span>
+				</h4>
 				<button class="btn btn-small square blue waves-effect" (click)="saidasForm.openForm()">
 					<i class="material-symbols-outlined">add</i>
 					<span class="hide-on-small-only">Adicionar Saída</span>
@@ -20,17 +23,32 @@
 					</thead>
 					<tbody>
 						<ng-container *ngIf="(saidas$ | async)?.length; else noResults">
-							<tr *ngFor="let entrada of (saidas$ | async)">
-								<td class="center-align">{{ entrada.data_vencimento.toString().substring(0, 10).split('-').reverse().join('/') }}</td>
-								<td class="left-align">{{ entrada.descricao }}</td>
-								<td class="center-align">{{ entrada.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) }}</td>
+							<tr *ngFor="let saida of (saidas$ | async)">
+								<td class="center-align">{{ saida.data_vencimento.toString().substring(0, 10).split('-').reverse().join('/') }}</td>
+								<td class="left-align">{{ saida.descricao }}</td>
+								<td class="center-align">{{ saida.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) }}</td>
 								<td class="acoes center-align">
-									<button type="button" class="btn btn-small rounded waves-effect modal-close blue" (click)="saidasForm.edit(entrada.id)">
-										<i class="material-symbols-outlined">edit_square</i>
-									</button>
-									<button type="button" class="btn btn-small rounded waves-effect red" (click)="saidasForm.removeSaida(entrada.id)">
-										<i class="material-symbols-outlined">delete</i>
-									</button>
+									<div #dropdown class="btn btn-small rounded waves-effect waves-light transparent z-depth-0" [attr.data-target]="`saida-dropdown-actions-${saida.id}`"><i class="material-symbols-outlined">more_vert</i></div>
+									<ul class="dropdown-content" id="saida-dropdown-actions-{{ saida.id }}" style="min-width: 215px;">
+										<li *ngIf="saida.comprovantes.length > 0">
+											<a class="comprovante-item" (click)="openModalComprovante(saida.comprovantes)">
+												<i class="material-symbols-outlined">preview</i>
+												<span>Ver comprovante</span>
+											</a>
+										</li>
+										<li>
+											<a (click)="saidasForm.edit(saida.id)">
+												<i class="material-symbols-outlined">edit_square</i>
+												<span>Editar</span>
+											</a>
+										</li>
+										<li>
+											<a (click)="saidasForm.removeSaida(saida.id)">
+												<i class="material-symbols-outlined">delete</i>
+												<span>Excluir</span>
+											</a>
+										</li>
+									</ul>
 								</td>
 							</tr>
 						</ng-container>
@@ -44,5 +62,31 @@
 			</div>
 		</div>
 		<app-saidas-form />
+	</div>
+</div>
+
+<div #modalComprovante class="modal modal-fixed-footer">
+	<div class="modal-content">
+
+		<div *ngIf="fileType.startsWith('image/')" class="center-align" style="margin-bottom: 1rem">
+			<img [src]="fileData" [alt]="fileName" width="300">
+		</div>
+		<div *ngIf="fileType === 'application/pdf'" class="center-align" style="margin-bottom: 1rem">
+			<iframe [src]="fileData" width="400" height="500"></iframe>
+		</div>
+		<div *ngIf="fileType.startsWith('text/')" class="left-align">
+			<h6 class="white-text">{{fileName}}</h6>
+			<pre style="padding: 20px; max-width: 100%; position: relative; white-space: normal; background: #fff; color: #000; display: flex; align-items: center; place-content: center; justify-content: center; width: 100%; flex: 1 100%;">{{fileData}}</pre>
+		</div>
+
+	</div>
+	<div class="modal-footer flex-end">
+		<div class="center-align" style="margin: 1rem;">
+			<a [href]="`data:${fileType};base64,${fileData}`" [download]="fileName" class="btn blue waves-effect">
+				<i class="material-symbols-outlined left">download</i>
+				Baixar {{fileName}}
+			</a>
+		</div>
+		<button class="btn modal-close gradient-45deg-indigo-blue waves-effect">Fechar</button>
 	</div>
 </div>

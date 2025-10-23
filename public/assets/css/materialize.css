@@ -1046,19 +1046,19 @@ ul.list-type-bullet {
 
 .flex-center,
 .items-center {
-	align-items: center;
+	align-items: center !important;
 }
 
 .flex-end {
-	place-content: end;
+	place-content: end !important;
 }
 
 .flex-start {
-	place-content: start;
+	place-content: start !important;
 }
 
 .space-between {
-	place-content: space-between;
+	place-content: space-between !important;
 }
 
 .pointer {

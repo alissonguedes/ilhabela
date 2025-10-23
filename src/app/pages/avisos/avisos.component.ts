@@ -52,7 +52,6 @@ export class AvisosComponent implements OnInit, OnDestroy, AfterViewInit {
     const dropdownElem = this.dropdown;
     const config = { alignment: 'right', container: 'body' };
     dropdownElem.forEach((item: ElementRef<any>) => {
-      console.log(dropdownElem);
       M.Dropdown.init(item.nativeElement, config);
     });
   }

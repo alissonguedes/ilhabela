@@ -29,13 +29,13 @@
 
 							<div class="row">
 								<div class="col s12 m6 l4">
-									<div class="card card-stats square">
+									<div class="card card-stats square border grey-border">
 										<div class="card-content">
 											<div class="card-stats-title">
 												<h5 class="card-title">Entradas</h5>
-												<i class="icon material-symbols-outlined">trending_up</i>
+												<i class="icon material-symbols-outlined">trending_down</i>
 											</div>
-											<h4 class="card-stats-number">R$ {{ totalEntradas }}</h4>
+											<h4 class="card-stats-number green-text text-darken-2">R$ {{ totalEntradas }}</h4>
 											<!-- <p class="card-stats-compare">
 												<i class="material-symbols-outlined">trending_up</i> +12% este mês
 											</p> -->
@@ -44,13 +44,13 @@
 								</div>
 
 								<div class="col s12 m6 l4">
-									<div class="card card-stats square">
+									<div class="card card-stats square border grey-border">
 										<div class="card-content">
 											<div class="card-stats-title">
 												<h5 class="card-title">Saídas</h5>
-												<i class="icon material-symbols-outlined">trending_down</i>
+												<i class="icon material-symbols-outlined">trending_up</i>
 											</div>
-											<h4 class="card-stats-number">R$ {{ totalSaidas }}</h4>
+											<h4 class="card-stats-number red-text text-darken-2">R$ {{ totalSaidas }}</h4>
 											<!-- <p class="card-stats-compare">
 												<i class="material-symbols-outlined">trending_up</i> +12% este mês
 											</p> -->
@@ -59,13 +59,13 @@
 								</div>
 
 								<div class="col s12 m6 l4">
-									<div class="card card-stats square">
+									<div class="card card-stats square border grey-border">
 										<div class="card-content">
 											<div class="card-stats-title">
 												<h5 class="card-title">Saldo</h5>
 												<i class="icon material-symbols-outlined">attach_money</i>
 											</div>
-											<h4 class="card-stats-number">R$ {{ totalSaldo }}</h4>
+											<h4 class="card-stats-number orange-text text-darken-2">R$ {{ totalSaldo }}</h4>
 											<!-- <p class="card-stats-compare">
 												<i class="material-symbols-outlined">trending_up</i> +12% este mês
 											</p> -->
@@ -76,22 +76,16 @@
 
 							<div class="row">
 								<div class="col s12">
-									<div class="card square">
+									<div class="card square border grey-border">
 										<div class="card-content">
-											<div class="row">
-												<div class="col s3 left-align">
-													<button class="btn-flat btn-small waves-effect">
-														<i class="material-symbols-outlined grey-text text-darken-1">chevron_left</i>
-													</button>
-												</div>
-												<div class="col s6 center-align">
-													<h2 class="mes">Dezembro/2025</h2>
-												</div>
-												<div class="col s3 right-align">
-													<button class="btn-flat btn-small waves-effect">
-														<i class="material-symbols-outlined grey-text text-darken-1">chevron_right</i>
-													</button>
-												</div>
+											<div class="flex flex-center space-between">
+												<button class="btn btn-flat waves-effect">
+													<i class="material-symbols-outlined white-text">chevron_left</i>
+												</button>
+												<h2 class="mes">Dezembro/2025</h2>
+												<button class="btn btn-flat waves-effect">
+													<i class="material-symbols-outlined white-text">chevron_right</i>
+												</button>
 											</div>
 										</div>
 									</div>

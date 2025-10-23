@@ -13,6 +13,7 @@ import {
   IFormComponent,
   FormComponent,
   ReactiveFormsModule,
+  Validators,
 } from '../../shared/components/form/form.component';
 import { NotesService } from '../../services/notes/notes.service';
 import { AvisosComponent } from './avisos.component';
@@ -33,12 +34,13 @@ export class AvisosForm extends Form implements IFormComponent {
 
   formTitle: string = '';
   isUpdate = signal(false);
+  isSubmitting = signal(false);
 
   formGroup = this.formBuilder.group({
     id: ['', { disabled: true }],
-    assunto: ['', {}],
-    texto: ['', {}],
-    status: ['', {}],
+    assunto: ['', [Validators.required]],
+    texto: ['', [Validators.required]],
+    status: [''],
   });
 
   edit(id: number) {
@@ -67,6 +69,7 @@ export class AvisosForm extends Form implements IFormComponent {
 
   resetForm(): void {
     this.isUpdate.set(false);
+    this.isSubmitting.set(false);
     this.formGroup.get('assunto')?.setValue(null);
     this.formGroup.get('texto')?.setValue(null);
     this.formGroup.get('status')?.setValue(null);
@@ -76,6 +79,9 @@ export class AvisosForm extends Form implements IFormComponent {
   }
 
   submitForm(data?: any): void {
+    if (this.formGroup.invalid) return;
+
+    this.isSubmitting.set(true);
     const values = { ...data };
     const id = values.id || null;
     values.status = values.status ? 'published' : 'draft';
@@ -104,7 +110,9 @@ export class AvisosForm extends Form implements IFormComponent {
         this.resetForm();
         this.notesService.notifyRefresh();
       },
-      error: (error: any) => {},
+      error: (error: any) => {
+        this.isSubmitting.set(false);
+      },
     });
   }
 }

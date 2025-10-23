@@ -4,25 +4,34 @@
 			<div card-content>
 				<div class="row">
 					<div class="col s12">
-						<div class="input-field square">
+						<div class="input-field square" [class]="formGroup.get('descricao')?.touched && formGroup.get('descricao')?.errors?.['required']? 'error' : null">
 							<label for="descricao">Descrição</label>
 							<input type="text" id="descricao" formControlName="descricao">
+							<div class="error" *ngIf="formGroup.get('descricao')?.touched && formGroup.get('descricao')?.errors?.['required']">
+								Campo obrigatório!
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s12">
-						<div class="input-field square">
+						<div class="input-field square" [class]="formGroup.get('valor')?.touched && formGroup.get('valor')?.errors?.['required']? 'error' : null">
 							<label for="valor">Valor (R$)</label>
 							<input type="text" id="valor" formControlName="valor" mask="decimal">
+							<div class="error" *ngIf="formGroup.get('valor')?.touched && formGroup.get('valor')?.errors?.['required']">
+								Campo obrigatório!
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s12">
-						<div class="input-field square">
+						<div class="input-field square" [class]="formGroup.get('data_vencimento')?.touched && formGroup.get('data_vencimento')?.errors?.['required']? 'error' : null">
 							<label for="data_vencimento">Data</label>
 							<input type="text" id="data_vencimento" formControlName="data_vencimento" datepicker>
+							<div class="error" *ngIf="formGroup.get('data_vencimento')?.touched && formGroup.get('data_vencimento')?.errors?.['required']">
+								Campo obrigatório!
+							</div>
 						</div>
 					</div>
 				</div>
@@ -32,7 +41,7 @@
 							<button type="reset" class="btn square waves-effect modal-close" (click)="resetForm()">
 								<i class="material-symbols-outlined">cancel</i>
 							</button>
-							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue" [disabled]="formGroup.invalid">
+							<button type="submit" class="btn square waves-effect gradient-45deg-indigo-blue" [disabled]="formGroup.invalid || isSubmitting()">
 								<i class="material-symbols-outlined">save</i>
 							</button>
 						</div>

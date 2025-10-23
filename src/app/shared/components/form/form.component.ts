@@ -109,9 +109,6 @@ export class FormComponent
   }
 
   submitForm() {
-    this.formGroup.markAllAsTouched();
-    if (this.formGroup.invalid) return;
-
     if (
       this.parentInstance &&
       typeof this.parentInstance.submitForm === 'function'

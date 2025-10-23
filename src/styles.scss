@@ -35,7 +35,6 @@ main {
 	width: 40px;
 	height: 40px;
 	padding: 0 10px;
-	line-height: 16px;
 	border-radius: 5px;
 }
 
@@ -46,11 +45,15 @@ main {
 
 .btn-flat i.material-symbols-outlined {
 	font-size: 24px;
-	line-height: 24px;
+	line-height: 40px;
 }
 
 .grey-border {
 	border-color: #334155 !important;
+}
+
+.gap-10 {
+	gap: 10px;
 }
 
 .navbar-color {
@@ -283,7 +286,7 @@ label {
 }
 
 .card-stats .card-stats-title {
-	color: #fff;
+	color: inherit;
 	display: flex;
 	align-items: center;
 	place-content: space-between;
@@ -305,7 +308,7 @@ label {
 	margin: 10px 0;
 	line-height: 24px;
 	font-size: 24px;
-	color: #fff;
+	color: inherit;
 	font-weight: bold;
 }
 
@@ -321,41 +324,41 @@ label {
 	color: #fff;
 }
 
-table {
+table:not(.datepicker-table) {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-table th,
-table td {
+table:not(.datepicker-table) th,
+table:not(.datepicker-table) td {
 	border-radius: 0;
 }
 
-table thead tr,
-table tbody tr {
+table:not(.datepicker-table) thead tr,
+table:not(.datepicker-table) tbody tr {
 	border-bottom: 1px solid #334155;
 }
 
-table thead tr,
-table tr:nth-child(even) {
+table:not(.datepicker-table) thead tr,
+table:not(.datepicker-table) tr:nth-child(even) {
 	background-color: #020617;
 }
 
-table tbody tr:last-child {
+table:not(.datepicker-table) tbody tr:last-child {
 	border: none;
 }
 
-table th:first-child,
-table td:first-child {
+table:not(.datepicker-table) th:first-child,
+table:not(.datepicker-table) td:first-child {
 	padding-left: 24px;
 }
 
-table th:first-child,
-table td:first-child {
+table:not(.datepicker-table) th:first-child,
+table:not(.datepicker-table) td:first-child {
 	padding-right: 24px;
 }
 
-table tr .btn {
+table:not(.datepicker-table) tr .btn {
 	width: 32px;
 	height: 32px;
 	margin: 0 10px;
@@ -374,9 +377,12 @@ table tr .btn {
 
 .dropdown-content {
 	min-width: 150px;
+	max-height: 250px;
 	border-color: #334155;
 }
 
+.dropdown-content li>a,
+.dropdown-content li>span,
 .dropdown-content li a {
 	color: #cbd5e1;
 }
@@ -385,12 +391,37 @@ table tr .btn {
 	background-color: #1e293b;
 }
 
+.select-dropdown.dropdown-trigger {
+	color: #fff;
+	border: none;
+	background: none !important;
+}
+
+.datepicker-date-display {
+	background-color: #0f172a;
+}
+
+
+.datepicker-table td.is-selected {
+	background-color: #334155;
+}
+
+.datepicker-table td.is-today {
+	color: var(--blue-lighten-1);
+}
+
+button:focus {
+	outline: none;
+	background-color: inherit;
+}
+
 .modal,
 .modal .card,
 .dropdown-content,
 .modal .modal-footer {
 	border-radius: 10px;
 	background-color: #0f172a;
+
 }
 
 .modal .modal-header {
@@ -408,7 +439,7 @@ table tr .btn {
 }
 
 .modal .modal-footer {
-	padding: 0 24px;
+	padding: 0 28px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

@@ -48,7 +48,7 @@ export class EntradasForm extends Form implements IFormComponent {
 
   formTitle: string = '';
   isUpdate = signal(false);
-  submited = signal(false);
+  isSubmitting = signal(false);
 
   formGroup = this.formBuilder.group({
     id: ['', { disabled: true }],
@@ -86,6 +86,13 @@ export class EntradasForm extends Form implements IFormComponent {
       .subscribe((confirmed: boolean) => {
         // 2. Assina o Observable para receber o resultado
         if (confirmed) {
+          //   M.Toast.dismissAll();
+          // const <div id="toast-container"><div class="toast" style="top: 0px; opacity: 1;">Registro excluído com sucesso!</div></div>
+          const toast_container = document.querySelector('#toast-container');
+
+          toast_container?.remove();
+          //   toast_container.forEach((el) => el.remove());
+
           const valuesBkp = [...this.entradas$.value];
           const filtrados = valuesBkp.filter((item) => item.id !== id);
 
@@ -121,7 +128,8 @@ export class EntradasForm extends Form implements IFormComponent {
 
   resetForm(): void {
     this.isUpdate.set(false);
-    this.submited.set(false);
+    this.isSubmitting.set(false);
+    this.formGroup.reset();
     this.formGroup.get('tipo')?.setValue('receber');
     this.formGroup.get('descricao')?.setValue(null);
     this.formGroup.get('data_vencimento')?.setValue(null);
@@ -132,7 +140,10 @@ export class EntradasForm extends Form implements IFormComponent {
   }
 
   submitForm(data?: any): void {
-    this.submited.set(true);
+    if (this.formGroup.invalid) return;
+
+    this.isSubmitting.set(true);
+
     const values = { ...data };
     const id = values.id || null;
     delete values.id;
