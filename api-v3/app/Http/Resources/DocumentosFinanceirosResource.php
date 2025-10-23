@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\FileChunkModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -29,6 +30,12 @@ class DocumentosFinanceirosResource extends JsonResource
 			'conta_id'        => $this->conta_id !== null ? (int) $this->conta_id : null,
 			'forma_pagamento' => $this->forma_pagamento,
 			'observacoes'     => $this->observacoes,
+			// <-- Aqui incluímos os anexos
+			'comprovantes' => $this->attachments ? $this->attachments->map(function ($attachment) {
+				$file = $attachment->files; // Model único
+				return $file ? FileChunkModel::reconstruirImagem($file->chunks, $file->type, $file->name) : null;
+			}) : null,
+
 		];
 	}
 }

@@ -19,7 +19,10 @@ return [
 
 	'allowed_methods'          => ['*'],
 
-	'allowed_origins'          => ['*'],
+	'allowed_origins' => explode(
+		',',
+		env('CORS_ALLOWED_ORIGINS') // Valor default para desenvolvimento
+	),
 
 	'allowed_origins_patterns' => [],
 

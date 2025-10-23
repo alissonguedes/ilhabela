@@ -8,6 +8,7 @@ use App\Models\DocumentosFinanceirosModel;
 use App\Rules\Money;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Models\AttachmentModel;
 
 class DocumentosFinanceirosController extends Controller
 {
@@ -17,7 +18,7 @@ class DocumentosFinanceirosController extends Controller
 	public function index(Request $request): JsonResponse
 	{
 		$tipo = $request->tipo ?? null;
-		$documentos = DocumentosFinanceirosModel::where('tipo', $tipo)->get();
+		$documentos = DocumentosFinanceirosModel::with('attachments')->where('tipo', $tipo)->get();
 		return response()->json(DocumentosFinanceirosResource::collection($documentos));
 	}
 
@@ -33,10 +34,15 @@ class DocumentosFinanceirosController extends Controller
 			'valor'           => ['required', new Money],
 			'data_vencimento' => 'required|date',
 			'status'          => 'required',
+			'comprovante'     => 'required',
 			'observacoes'     => 'nullable',
 		]);
 
 		$documento = DocumentosFinanceirosModel::create($validated);
+
+		if ($validated['comprovante']) {
+			AttachmentModel::add($request->file('comprovante'), $documento->id, 'transaction');
+		}
 
 		return response()->json([
 			'data'    => new DocumentosFinanceirosResource($documento),
@@ -63,6 +69,7 @@ class DocumentosFinanceirosController extends Controller
 	 */
 	public function update(Request $request, int $id): JsonResponse
 	{
+
 		$documento = DocumentosFinanceirosModel::find($id);
 
 		if (!$documento) {
@@ -70,15 +77,20 @@ class DocumentosFinanceirosController extends Controller
 		}
 
 		$validated = $request->validate([
-			'descricao'       => 'sometimes|required|string|max:255',
-			'valor'           => ['sometimes', 'required', new Money],
-			'data_vencimento' => 'nullable|date',
+			'tipo'			  => 'required',
+			'descricao'       => 'required|string|max:255',
+			'valor'           => ['required', new Money],
+			'data_vencimento' => 'required|date',
 			'status'          => 'required',
+			'comprovante'     => 'nullable',
 			'observacoes'     => 'nullable',
-			// outros campos...
 		]);
 
 		$documento->fill($validated);
+
+		if ($validated['comprovante']) {
+			AttachmentModel::add($request->file('comprovante'), $id, 'transaction');
+		}
 
 		if (!$documento->save()) {
 			return response()->json(['message' => 'Erro ao tentar atualizar o registro.'], 400);
@@ -104,6 +116,8 @@ class DocumentosFinanceirosController extends Controller
 		if (!$documento->delete()) {
 			return response()->json(['message' => 'Erro ao tentar excluir o registro.'], 409);
 		}
+
+		AttachmentModel::where('object_id', $id)->where('type', 'transaction')->delete();
 
 		return response()->json(['message' => 'Registro excluído com sucesso!']);
 	}

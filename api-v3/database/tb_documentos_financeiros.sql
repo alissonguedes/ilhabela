@@ -66,6 +66,10 @@ ALTER TABLE `tb_documentos_financeiros`
 --
 ALTER TABLE `tb_documentos_financeiros`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `tb_documentos_financeiros`
+	ADD `comprovante` BLOB NULL DEFAULT NULL AFTER `observacoes`;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

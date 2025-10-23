@@ -29,4 +29,9 @@ class DocumentosFinanceirosModel extends Model
 		// 'data_emissao' => 'date',
 		// 'data_vencimento' => 'date',
 	];
+
+	public function attachments()
+	{
+		return $this->hasMany(\App\Models\AttachmentModel::class, 'object_id', 'id')->with('files')->where('type', 'transaction');
+	}
 }
