@@ -439,13 +439,40 @@ button:focus {
 }
 
 .modal .modal-footer {
-	padding: 0 28px;
+	padding: 0 24px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	height: 70px;
 	border-top: 1px solid #334155;
 	border-radius: 0;
+}
+
+.modal-content iframe {
+	width: 100%;
+	height: calc(100vh - 290px);
+	border: none;
+}
+
+.raw-file {
+	padding: 20px;
+	max-width: 100%;
+	position: relative;
+	background: #fff;
+	color: #000;
+	display: flex;
+	align-items: center;
+	place-content: center;
+	justify-content: center;
+	width: 100%;
+	flex: 1 100%;
+}
+
+.ng2-pdf-viewer-container {
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	height: 100% !important;
+	width: auto !important;
 }
 
 button[type="reset"] {

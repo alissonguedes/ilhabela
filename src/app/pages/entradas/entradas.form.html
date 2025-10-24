@@ -17,7 +17,7 @@
 					<div class="col s12">
 						<div class="input-field square" [class]="formGroup.get('valor')?.touched && formGroup.get('valor')?.errors?.['required']? 'error' : null">
 							<label for="valor">Valor (R$)</label>
-							<input type="text" id="valor" formControlName="valor" mask="decimal">
+							<input type="tel" id="valor" formControlName="valor" mask="decimal">
 							<div class="error" *ngIf="formGroup.get('valor')?.touched && formGroup.get('valor')?.errors?.['required']">
 								Campo obrigatório!
 							</div>

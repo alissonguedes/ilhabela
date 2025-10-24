@@ -35,7 +35,7 @@
 												<h5 class="card-title">Entradas</h5>
 												<i class="icon material-symbols-outlined">trending_down</i>
 											</div>
-											<h4 class="card-stats-number green-text text-darken-2">R$ {{ totalEntradas }}</h4>
+											<h4 class="card-stats-number green-text text-darken-2">R$ {{ totalEntradas || '0,00' }}</h4>
 											<!-- <p class="card-stats-compare">
 												<i class="material-symbols-outlined">trending_up</i> +12% este mês
 											</p> -->
@@ -50,7 +50,7 @@
 												<h5 class="card-title">Saídas</h5>
 												<i class="icon material-symbols-outlined">trending_up</i>
 											</div>
-											<h4 class="card-stats-number red-text text-darken-2">R$ {{ totalSaidas }}</h4>
+											<h4 class="card-stats-number red-text text-darken-2">R$ {{ totalSaidas || '0,00' }}</h4>
 											<!-- <p class="card-stats-compare">
 												<i class="material-symbols-outlined">trending_up</i> +12% este mês
 											</p> -->
@@ -65,7 +65,7 @@
 												<h5 class="card-title">Saldo</h5>
 												<i class="icon material-symbols-outlined">attach_money</i>
 											</div>
-											<h4 class="card-stats-number orange-text text-darken-2">R$ {{ totalSaldo }}</h4>
+											<h4 class="card-stats-number orange-text text-darken-2">R$ {{ totalSaldo || '0,00' }}</h4>
 											<!-- <p class="card-stats-compare">
 												<i class="material-symbols-outlined">trending_up</i> +12% este mês
 											</p> -->

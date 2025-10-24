@@ -147,15 +147,19 @@ export class SaidasForm extends Form implements IFormComponent {
     this.formGroup.get('status')?.setValue('pendente');
 
     // Limpa file-field
-    const filePaths = this.formSaidas.nativeElement.querySelectorAll('.file-path') as NodeListOf<HTMLInputElement>;
+    const filePaths = this.formSaidas.nativeElement.querySelectorAll(
+      '.file-path'
+    ) as NodeListOf<HTMLInputElement>;
     filePaths.forEach((fp) => (fp.value = ''));
 
     // Limpa todos os datepickers do form
-    const datepickers = this.formSaidas.nativeElement.querySelectorAll('[datepicker]') as NodeListOf<HTMLInputElement>;
+    const datepickers = this.formSaidas.nativeElement.querySelectorAll(
+      '[datepicker]'
+    ) as NodeListOf<HTMLInputElement>;
     datepickers.forEach((dp) => {
       dp.value = ''; // limpa o input
       const instance = M.Datepicker.getInstance(dp);
-        if (instance) instance.setDate(null); // limpa a seleção interna
+      if (instance) instance.setDate(null); // limpa a seleção interna
     });
 
     // Atualiza labels do Materialize
@@ -164,6 +168,40 @@ export class SaidasForm extends Form implements IFormComponent {
     // Fecha modal
     const modal = M.Modal.getInstance(this.formSaidas.nativeElement);
     if (modal) modal.close();
+  }
+
+  acceptedTypes: string = 'image/*,application/pdf,text/plain';
+
+  /**
+   * Função auxiliar de verificação do tipo de arquivos válidos
+   */
+  isFileTypeValid(file: File, allowedTypes: string[]): boolean {
+    // Se o tipo estiver vazio, tentar validar pelo nome da extensão
+    if (!file.type) {
+      const fileName = file.name || '';
+      const ext = fileName.includes('.')
+        ? fileName.split('.').pop()?.toLowerCase() || ''
+        : '';
+      return allowedTypes.some((type) => {
+        // Se for tipo específico como 'text/plain', comparar com extensões
+        if (type === 'text/plain' && ext === 'txt') return true;
+        if (type === 'application/pdf' && ext === 'pdf') return true;
+        if (
+          type.startsWith('image/') &&
+          ['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext)
+        )
+          return true;
+        return false;
+      });
+    }
+
+    // Tipo definido, valida normalmente
+    return allowedTypes.some((type) => {
+      if (type.endsWith('/*')) {
+        return file.type.startsWith(type.split('/')[0] + '/');
+      }
+      return file.type === type;
+    });
   }
 
   /**
@@ -175,11 +213,6 @@ export class SaidasForm extends Form implements IFormComponent {
 
     if (fileList && fileList.length > 0) {
       this.selectedFile = this.uploadFiles(fileList);
-
-      console.log(this.selectedFile);
-
-      this.formGroup.get('comprovante')?.markAsUntouched();
-      this.formGroup.get('comprovante')?.markAsPristine();
     } else {
       this.selectedFile = null;
       this.formGroup.get('comprovante')?.setValue('');
@@ -188,7 +221,16 @@ export class SaidasForm extends Form implements IFormComponent {
 
   private uploadFiles(files: FileList) {
     const file: any = [];
-    Array.from(files).forEach((f) => file.push(f));
+    Array.from(files).forEach((f) => {
+      if (!this.isFileTypeValid(f, this.acceptedTypes.split(','))) {
+        this.formGroup.get('comprovante')?.setErrors({ invalid: true });
+        this.formGroup.get('comprovante')?.markAsTouched();
+        this.formGroup.get('comprovante')?.markAsPristine();
+        return;
+      }
+      file.push(f);
+    });
+
     return file;
   }
 

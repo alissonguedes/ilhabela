@@ -12,11 +12,58 @@
 					</div>
 					<x-form [formGroup]="formGroup">
 						<div card-content #cardContent>
+							<style>
+								#loading {
+									position: absolute;
+									top: 0;
+									left: 0;
+									right: 0;
+									bottom: 0;
+									background-color: rgba(255, 255, 255, 0.1);
+									z-index: 9999;
+								}
+
+								.preloader-wrapper {
+									position: absolute;
+									z-index: 9999;
+									top: 0;
+									left: 0;
+									width: 30px;
+									height: 30px;
+									top: 50%;
+									left: 50%;
+									margin-top: -15px;
+									margin-left: -15px;
+								}
+
+								.circle-clipper .circle,
+								.gap-patch .circle,
+								.circle-clipper .circle {
+									width: 30px;
+									height: 30px;
+									border-width: 4px;
+								}
+							</style>
+							<div id="loading" *ngIf="authService.isSubmitting()">
+								<div class="preloader-wrapper active">
+									<div class="spinner-layer spinner-blue-only">
+										<div class="circle-clipper left">
+											<div class="circle"></div>
+										</div>
+										<div class="gap-patch">
+											<div class="circle"></div>
+										</div>
+										<div class="circle-clipper right">
+											<div class="circle"></div>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col s12">
 									<div class="input-field square" [class.error]="formGroup.get('username')?.invalid && formGroup.get('username')?.touched">
 										<label for="username">Usuário</label>
-										<input type="text" id="username" formControlName="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+										<input type="email" id="username" formControlName="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
 									</div>
 								</div>
 							</div>
@@ -31,7 +78,11 @@
 							<div class="row">
 								<div class="col s12">
 									<div class="input-field">
-										<button type="submit" class="btn expanded square blue lighten-1 waves-effect" [disabled]="formGroup.invalid">Login</button>
+										<button type="submit" class="btn expanded square blue lighten-1 waves-effect" [disabled]="formGroup.invalid || authService.isSubmitting()">
+											<i class="material-symbols-outlined" *ngIf="!authService.isSubmitting()">login</i>
+
+											<span>Login</span>
+										</button>
 									</div>
 								</div>
 							</div>

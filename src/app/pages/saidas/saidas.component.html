@@ -30,7 +30,7 @@
 								<td class="acoes center-align">
 									<div #dropdown class="btn btn-small rounded waves-effect waves-light transparent z-depth-0" [attr.data-target]="`saida-dropdown-actions-${saida.id}`"><i class="material-symbols-outlined">more_vert</i></div>
 									<ul class="dropdown-content" id="saida-dropdown-actions-{{ saida.id }}" style="min-width: 215px;">
-										<li *ngIf="saida.comprovantes.length > 0">
+										<li *ngIf="saida.comprovantes && saida.comprovantes.length > 0">
 											<a class="comprovante-item" (click)="openModalComprovante(saida.comprovantes)">
 												<i class="material-symbols-outlined">preview</i>
 												<span>Ver comprovante</span>
@@ -66,27 +66,63 @@
 </div>
 
 <div #modalComprovante class="modal modal-fixed-footer">
-	<div class="modal-content">
+	<div class="modal-content" [class]="!filePreview() ? 'flex flex-center justify-center' : null" style="overflow: hidden;">
 
-		<div *ngIf="fileType.startsWith('image/')" class="center-align" style="margin-bottom: 1rem">
-			<img [src]="fileData" [alt]="fileName" width="300">
+		<!-- Imagem -->
+		<div *ngIf="fileType?.startsWith('image/')" class="center-align" style="margin-bottom: 1rem">
+			<img [src]="fileData" [alt]="fileName" width="300" />
 		</div>
+
+		<!-- PDF -->
 		<div *ngIf="fileType === 'application/pdf'" class="center-align" style="margin-bottom: 1rem">
-			<iframe [src]="fileData" width="400" height="500"></iframe>
+			<div *ngIf="fileType === 'application/pdf'" class="center-align" style="margin-bottom: 1rem">
+				<pdf-viewer [src]="fileData" [render-text]="true" [show-all]="true" style="display: block; width: 100%; height: calc(100vh - 300px);">
+				</pdf-viewer>
+			</div>
 		</div>
-		<div *ngIf="fileType.startsWith('text/')" class="left-align">
-			<h6 class="white-text">{{fileName}}</h6>
-			<pre style="padding: 20px; max-width: 100%; position: relative; white-space: normal; background: #fff; color: #000; display: flex; align-items: center; place-content: center; justify-content: center; width: 100%; flex: 1 100%;">{{fileData}}</pre>
+
+		<!-- Texto -->
+		<div *ngIf="fileType?.startsWith('text/')" class="left-align">
+			<h6 class="white-text">{{ fileName }}</h6>
+			<pre class="raw-file">{{ fileData }}</pre>
+		</div>
+
+		<!-- Outros arquivos ou formatos Office (Word, Excel, PowerPoint, CSV) -->
+		<div *ngIf="previewUrl && !fileType?.startsWith('image/') && !fileType?.startsWith('text/') && fileType !== 'application/pdf'" id="no-file-preview" class="flex center-align">
+			<div class="flex flex-center center-align flex-column justify-center">
+				<div class="">
+					<h2><i class="material-symbols-outlined">preview_off</i></h2>
+					<p>Visualização não disponível para este formato de arquivo.</p>
+				</div>
+				<div class="">
+					<button (click)="downloadFile()" class="btn blue waves-effect">
+						<i class="material-symbols-outlined left">download</i>
+						Baixar
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Outros -->
+		<div *ngIf="!previewUrl && !fileType?.startsWith('image/') && !fileType?.startsWith('text/') && fileType !== 'application/pdf'" class="flex center-align" style="margin: 1rem;">
+			<div class="flex flex-center center-align flex-column justify-center">
+				<div class="">
+					<h2 style="font-size: 6rem;"><i class="material-symbols-outlined">broken_image</i></h2>
+					<p>Arquivo indisponível ou corrompido.</p>
+				</div>
+			</div>
 		</div>
 
 	</div>
-	<div class="modal-footer flex-end">
-		<div class="center-align" style="margin: 1rem;">
-			<a [href]="`data:${fileType};base64,${fileData}`" [download]="fileName" class="btn blue waves-effect">
+	<div class="modal-footer">
+		<div class="left">
+			<button (click)="downloadFile()" class="btn blue waves-effect" *ngIf="filePreview()">
 				<i class="material-symbols-outlined left">download</i>
 				Baixar {{fileName}}
-			</a>
+			</button>
 		</div>
-		<button class="btn modal-close gradient-45deg-indigo-blue waves-effect">Fechar</button>
+		<div class="right">
+			<button class="btn modal-close white blue-text waves-effect">Fechar</button>
+		</div>
 	</div>
 </div>

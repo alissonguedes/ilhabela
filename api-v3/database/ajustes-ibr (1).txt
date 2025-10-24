@@ -1,0 +1,4 @@
+- Exportação de relatório para Excel/CSV
+- Validação dos dados do formulário de inscrição - Alterar dados durante a inscrição.
+- Parcelamento de boleto no ato da criação do evento
+- Cadastrar alertas para novos inscritos no sistema

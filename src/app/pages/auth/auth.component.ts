@@ -5,6 +5,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
 import {
@@ -18,23 +19,20 @@ import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule, FormComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class AuthComponent extends Form implements OnInit, IFormComponent {
+  protected authService = inject(AuthService);
   private route: Router = inject(Router);
-  private authService = inject(AuthService);
 
   @ViewChild(FormComponent) formulario!: FormComponent;
 
   formGroup = this.formBuilder.group({
-    username: [
-      'alissonguedes87@gmail.com',
-      [Validators.required, Validators.email],
-    ],
-    password: ['admin123', [Validators.required, Validators.minLength(6)]],
+    username: [null, [(Validators.required, Validators.email)]],
+    password: [null, [Validators.required, Validators.minLength(6)]],
   });
 
   ngOnInit() {
@@ -49,6 +47,7 @@ export class AuthComponent extends Form implements OnInit, IFormComponent {
 
   submitForm(): void {
     if (this.formGroup.valid) {
+      this.authService.isSubmitting.set(true);
       let { username, password } = this.formGroup.value;
       this.authService.login(username!, password!);
     }

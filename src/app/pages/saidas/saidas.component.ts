@@ -12,16 +12,26 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 import { BehaviorSubject } from 'rxjs';
 
 import { SaidasForm } from './saidas.form';
 import { TransactionsService } from '../../services/transactions/transactions.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
 declare const M: any;
 
 @Component({
   selector: 'app-saidas',
-  imports: [CommonModule, ReactiveFormsModule, SaidasForm],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    SaidasForm,
+    PdfViewerModule,
+    SafeUrlPipe,
+  ],
   templateUrl: './saidas.component.html',
   styleUrl: './saidas.component.scss',
 })
@@ -37,7 +47,10 @@ export class SaidasComponent implements AfterViewInit, OnInit, OnDestroy {
     periodo: `${this.periodo.substring(0, 7)}`,
   };
 
-  constructor(private transactionsService: TransactionsService) {}
+  constructor(
+    private transactionsService: TransactionsService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.transactionsService.getAll(this.params).subscribe({
@@ -63,67 +76,137 @@ export class SaidasComponent implements AfterViewInit, OnInit, OnDestroy {
   fileName: string = '';
   fileData: string = '';
 
-  openModalComprovante(comprovantes: any[]) {
-    const modalElement = this.modalComprovante.nativeElement;
-    const modalContent = modalElement.querySelector(
-      '.modal-content'
-    ) as HTMLDivElement;
+  utf8Decode(fileData: string) {
+    // Decodifica Base64 corretamente como UTF-8
+    const decoded = decodeURIComponent(
+      Array.prototype.map
+        .call(atob(fileData), (c: string) => {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+    return decoded;
+  }
 
-    // Limpa o conteúdo anterior
-    // modalContent.innerHTML = '';
+  previewUrl: string | null = null;
 
-    // Monta o HTML de todos os comprovantes
-    let html = '';
-
-    for (const c of comprovantes) {
-      if (!c || !c.type || !c.data) continue;
-
-      //   const safeName = c.name || 'comprovante';
-      //   const safeType = c.type;
-
-      this.fileName = c.name;
-      this.fileType = c.type;
-      this.fileData = c.type.startsWith('text/') ? atob(c.data) : c.data;
-
-      console.log(this.fileData, this.fileName, this.fileType);
-
-      //   if (safeType.startsWith('image/')) {
-      //     html += `
-      //     <div class="center-align" style="margin-bottom: 1rem">
-      //       <img src="${c.data}" alt="${safeName}" width="300">
-      //     </div>`;
-      //   } else if (safeType === 'application/pdf') {
-      //     html += `
-      //     <div class="center-align" style="margin-bottom: 1rem">
-      //       <iframe src="data:${safeType};base64,${c.data}" width="400" height="500"></iframe>
-      //     </div>`;
-      //   } else if (safeType.startsWith('text/')) {
-      //     const decoded = atob(c.data);
-      //     html += `
-      //     <div class="left-align">
-      //       <h6 class="white-text">${safeName}</h6>
-      //       <pre style="padding: 20px; max-width: 100%; position: relative; white-space: normal; background: #fff; color: #000; display: flex; align-items: center; place-content: center; justify-content: center; width: 100%; flex: 1 100%;">${decoded}</pre>
-      //     </div>`;
-      //   } else {
-      //     html += `
-      //     <div class="center-align" style="margin: 1rem;">
-      //       <a href="data:${safeType};base64,${c.data}" download="${safeName}" class="btn blue">
-      //         <i class="material-symbols-outlined left">download</i>
-      //         Baixar ${safeName}
-      //       </a>
-      //     </div>`;
-      //   }
-    }
-
-    // Atribui o HTML completo de uma vez
-    // modalContent.innerHTML = html;
+  openModalComprovante(comprovantes: any): void {
+    const comprovante = comprovantes[0];
+    this.fileType = comprovante.type;
+    this.fileName = comprovante.name;
+    this.fileData = this.prepareFileData(comprovante);
+    this.previewUrl = this.preparePreviewUrl(comprovante);
 
     // Inicializa o modal (se ainda não estiver)
+    const modalElement = this.modalComprovante.nativeElement;
     let modal = M.Modal.getInstance(modalElement);
     if (!modal) modal = M.Modal.init(modalElement);
-
-    // Abre o modal
     modal.open();
+  }
+
+  filePreview = signal(false);
+  /**
+   * Gera a base64 ou texto legível conforme tipo MIME
+   */
+  prepareFileData(comprovante: any): string {
+    if (comprovante.type.startsWith('image/')) {
+      this.filePreview.set(true);
+      return comprovante.data;
+    }
+
+    if (comprovante.type === 'application/pdf') {
+      this.filePreview.set(true);
+      return `data:application/pdf;base64,${comprovante.data}`;
+    }
+
+    if (comprovante.type.startsWith('text/')) {
+      this.filePreview.set(true);
+      return this.utf8Decode(comprovante.data);
+    }
+
+    this.filePreview.set(false);
+    // Mantém base64 padrão para outros tipos
+    return `data:${comprovante.type};base64,${comprovante.data}`;
+  }
+
+  /**
+   * Define qual URL será usada para exibição no iframe
+   */
+  preparePreviewUrl(comprovante: any): string | null {
+    const mime = comprovante.type;
+    const base64Url = `data:${mime};base64,${comprovante.data}`;
+
+    // PDF e imagem — preview direto
+    if (mime.startsWith('image/') || mime === 'application/pdf') {
+      return base64Url;
+    }
+
+    // Texto puro — preview dentro de <pre>
+    if (mime.startsWith('text/')) {
+      return null; // Exibido no <pre> direto
+    }
+
+    // Extensões que podem ser abertas via Google Docs Viewer
+    const supportedOfficeTypes = [
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+      'application/msword', // .doc
+      'application/vnd.ms-excel', // .xls
+      'text/csv',
+    ];
+
+    if (supportedOfficeTypes.includes(mime)) {
+      // Criamos uma URL blob temporária para abrir via Google Docs Viewer
+      const blob = this.base64ToBlob(comprovante.data, mime);
+      const blobUrl = URL.createObjectURL(blob);
+      return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(
+        blobUrl
+      )}`;
+    }
+
+    // Outros tipos (zip, rar, etc.) não suportados
+    return null;
+  }
+
+  /**
+   * Converte base64 para Blob (necessário para Google Docs Viewer)
+   */
+  base64ToBlob(base64: string, mime: string): Blob {
+    const byteChars = atob(base64);
+    const byteNumbers = new Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) {
+      byteNumbers[i] = byteChars.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mime });
+  }
+
+  /**
+   * Baixa o arquivo localmente
+   */
+  downloadFile(): void {
+    if (!this.fileData || !this.fileName) {
+      M.toast({ html: 'Nenhum arquivo disponível para download.' });
+      return;
+    }
+
+    const link = document.createElement('a');
+
+    if (this.fileType.startsWith('text/')) {
+      const blob = new Blob([this.fileData], { type: this.fileType });
+      link.href = URL.createObjectURL(blob);
+    } else {
+      link.href = this.fileData;
+    }
+
+    link.download = this.fileName;
+    link.target = '_blank';
+    link.click();
+
+    setTimeout(() => {
+      if (link.href.startsWith('blob:')) URL.revokeObjectURL(link.href);
+    }, 1000);
   }
 
   private initDropdowns() {

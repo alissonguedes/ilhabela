@@ -1061,6 +1061,10 @@ ul.list-type-bullet {
 	place-content: space-between !important;
 }
 
+.justify-center {
+	justify-content: center !important;
+}
+
 .pointer {
 	cursor: pointer !important;
 }
@@ -1943,6 +1947,28 @@ textarea.materialize-textarea:disabled,
 	box-shadow: none;
 	font-size: 14px;
 	border-radius: inherit;
+}
+
+.file-field input[type=file] {
+	width: 100% !important;
+}
+
+.input-field.square:not(.browser-default).file-field .btn,
+.input-field.rounded:not(.browser-default).file-field .btn {
+	border-radius: 10px 0px 0px 10px !important;
+	border: 1px solid inherit !important;
+	height: 3.1rem;
+	line-height: 3.1rem;
+}
+
+.input-field.square:not(.browser-default).file-field input[type="text"]:not(.browser-default),
+.input-field.rounded:not(.browser-default).file-field input[type="text"]:not(.browser-default) {
+	border-radius: 0px 10px 10px 0px !important;
+}
+
+.input-field.square:not(.browser-default).file-field .file-path-wrapper,
+.input-field.rounded:not(.browser-default).file-field .file-path-wrapper {
+	padding-left: 0;
 }
 
 .input-field.square textarea,

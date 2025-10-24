@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpService } from '../http.service';
 
 declare const M: any;
@@ -7,6 +7,8 @@ declare const M: any;
   providedIn: 'root',
 })
 export class AuthService extends HttpService {
+  isSubmitting = signal(false);
+
   login(username: string, password: string) {
     let data = { email: username, password: password };
 
@@ -23,6 +25,7 @@ export class AuthService extends HttpService {
         console.error('There was an error!', error);
         M.toast({ html: 'Usuário ou senha inválidos!' });
         localStorage.clear();
+        this.isSubmitting.set(false);
       },
     });
   }
