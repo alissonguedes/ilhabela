@@ -7,24 +7,116 @@
 				<br>
 				<p class="flex gap-10 flex-center">
 					<i class="material-symbols-outlined">calendar_today</i>
-					{{ `${day[date.getDay()]}, ${date.getDate()} de ${month[date.getMonth()]} de ${date.getFullYear()}` }}</p>
+					{{ `${day[date.getDay()]}, ${date.getDate()} de ${month[date.getMonth()]} de ${date.getFullYear()}` }}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--
+<div class="row">
+	<div class="col s12 m3 l4">
+		<div class="card card-stats square">
+			<div class="card-header">
+				<div class="card-title flex flex-center gap-10 bold green-text text-darken-1">
+					<i class="material-symbols-outlined green lighten-2 green-text text-darken-1" style="padding: 10px; border-radius: 10px;">trending_up</i>
+					entradas do mês
+				</div>
+			</div>
+			<div class="card-content">
+				<div class="card-stats-number green-text text-darken-1"> R$ 0,00</div>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m3 l4">
+		<div class="card card-stats square">
+			<div class="card-header">
+				<div class="card-title flex flex-center gap-10 bold red-text text-darken-1">
+					<i class="material-symbols-outlined red lighten-5 red-text text-darken-1" style="padding: 10px; border-radius: 10px;">trending_down</i>
+					entradas do mês
+				</div>
+			</div>
+			<div class="card-content">
+				<div class="card-stats-number red-text text-darken-1"> R$ 0,00</div>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m3 l4">
+		<div class="card card-stats square">
+			<div class="card-header">
+				<div class="card-title flex flex-center gap-10 bold blue-text text-darken-1">
+					<i class="material-symbols-outlined blue lighten-4 blue-text text-darken-3" style="padding: 10px; border-radius: 10px;">attach_money</i>
+					entradas do mês
+				</div>
+			</div>
+			<div class="card-content">
+				<div class="card-stats-number blue-text text-darken-1"> R$ 0,00</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="row">
+	<div class="col s12 m6 l4">
+		<div class="card card-stats square border grey-border">
+			<div class="card-content">
+				<div class="card-stats-title">
+					<h5 class="card-title">Entradas</h5>
+					<i class="icon material-symbols-outlined">trending_down</i>
+				</div>
+				<h4 class="card-stats-number green-text text-darken-2">R$ {{ totalEntradas() | currencyFormat }}</h4>
+				<!-- <p class="card-stats-compare">
+												<i class="material-symbols-outlined">trending_up</i> +12% este mês
+											</p> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="col s12 m6 l4">
+		<div class="card card-stats square border grey-border">
+			<div class="card-content">
+				<div class="card-stats-title">
+					<h5 class="card-title">Saídas</h5>
+					<i class="icon material-symbols-outlined">trending_up</i>
+				</div>
+				<h4 class="card-stats-number red-text text-darken-2">R$ {{ totalSaidas() | currencyFormat }}</h4>
+				<!-- <p class="card-stats-compare">
+												<i class="material-symbols-outlined">trending_up</i> +12% este mês
+											</p> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="col s12 m6 l4">
+		<div class="card card-stats square border grey-border">
+			<div class="card-content">
+				<div class="card-stats-title">
+					<h5 class="card-title">Saldo</h5>
+					<i class="icon material-symbols-outlined">attach_money</i>
+				</div>
+				<h4 class="card-stats-number orange-text text-darken-2">R$ {{ totalSaldo() | currencyFormat }}</h4>
+				<!-- <p class="card-stats-compare">
+												<i class="material-symbols-outlined">trending_up</i> +12% este mês
+											</p> -->
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col s12 m3 l4">
-		<div class="card card-stats">
-			<div class="card-header">
-				<div class="card-title flex flex-center gap-10 bold">
-					<i class="material-symbols-outlined" style="padding: 10px; border-radius: 100%; background: pink">trending_up</i>
-					entradas do mês
-				</div>
-			</div>
-			<div class="card-content">
-				<div class="card-stats-number"> R$ 0,00</div>
-			</div>
-		</div>
+	<div class="col s12">
+		<app-entradas></app-entradas>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col s12">
+		<app-saidas></app-saidas>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col s12">
+		<app-avisos></app-avisos>
 	</div>
 </div>

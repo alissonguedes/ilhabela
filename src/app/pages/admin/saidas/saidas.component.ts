@@ -20,6 +20,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { SaidasForm } from './saidas.form';
 import { TransactionsService } from '../../../services/transactions/transactions.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 declare const M: any;
 
@@ -47,6 +48,12 @@ export class SaidasComponent implements AfterViewInit {
   private transactionsService = inject(TransactionsService);
   public readonly totalSaidas = this.transactionsService.totalSaidas;
   public readonly saidasList = this.transactionsService.saidasList;
+
+  group: string = '';
+
+  constructor(private auth: AuthService) {
+    this.group = this.auth.getUserGroup();
+  }
 
   ngAfterViewInit() {
     this.dropdown.changes.subscribe(() => {
@@ -79,7 +86,7 @@ export class SaidasComponent implements AfterViewInit {
       });
     }
 
-	console.log(comprovantes);
+    console.log(comprovantes);
 
     // Verifica se há arquivo a ser listado na variável `comprovantes`
     // Se não houver, deverá apresentar a seção `Arquivos Inválidos ou Corrompidos`

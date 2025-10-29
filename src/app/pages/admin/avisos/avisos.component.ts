@@ -14,6 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 import { AvisosForm } from './avisos.form';
 import { NotesService } from '../../../services/notes/notes.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 declare const M: any;
 
@@ -30,7 +31,11 @@ export class AvisosComponent implements OnInit, OnDestroy, AfterViewInit {
 
   avisos$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  constructor(private notesService: NotesService) {}
+  group: string = '';
+
+  constructor(private notesService: NotesService, private auth: AuthService) {
+    this.group = this.auth.getUserGroup();
+  }
 
   ngOnInit(): void {
     this.notesService.getAll().subscribe({

@@ -2,7 +2,7 @@
 	<div class="card-header">
 		<div class="card-title">
 			<h4>Avisos</h4>
-			<button class="btn square gradient-45deg-indigo-blue waves-effect" (click)="avisosForm.openForm()">
+			<button class="btn square gradient-45deg-indigo-blue waves-effect" (click)="avisosForm.openForm()" *ngIf="group === 'admin'">
 				<i class="material-symbols-outlined">add</i>
 			</button>
 		</div>
@@ -18,10 +18,10 @@
 						</div>
 						<div class="card-action">
 							<p class="data-post" [style.text-decoration]="aviso.status === 'draft' ? 'line-through' : null">{{ aviso.data.substring(0, 10).split('-').reverse().join('/') }} {{ aviso.data.substring(11, 16).split(':').join('h') }}</p>
-							<div #dropdown class="btn btn-floating btn-small transparent z-depth-0" [attr.data-target]="`avisos-dropdown-actions-${aviso.id}`">
+							<div #dropdown class="btn btn-floating btn-small transparent z-depth-0" [attr.data-target]="`avisos-dropdown-actions-${aviso.id}`" *ngIf="group === 'admin'">
 								<i class="material-symbols-outlined">more_vert</i>
 							</div>
-							<ul id="avisos-dropdown-actions-{{ aviso.id }}" class="dropdown-content">
+							<ul id="avisos-dropdown-actions-{{ aviso.id }}" class="dropdown-content" *ngIf="group === 'admin'">
 								<li>
 									<a (click)="avisosForm.edit(aviso.id)">
 										<i class="material-symbols-outlined">edit_square</i>

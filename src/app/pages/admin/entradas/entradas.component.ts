@@ -16,6 +16,7 @@ import { BehaviorSubject } from 'rxjs';
 import { EntradasForm } from './entradas.form';
 import { TransactionsService } from '../../../services/transactions/transactions.service';
 import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
+import { AuthService } from '../../../services/auth/auth.service';
 
 declare const M: any;
 
@@ -38,4 +39,10 @@ export class EntradasComponent {
   private transactionsService = inject(TransactionsService);
   public readonly totalEntradas = this.transactionsService.totalEntradas;
   public readonly entradasList = this.transactionsService.entradasList;
+
+  group: string = '';
+
+  constructor(private auth: AuthService) {
+    this.group = this.auth.getUserGroup();
+  }
 }
