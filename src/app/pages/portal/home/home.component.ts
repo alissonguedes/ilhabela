@@ -8,6 +8,32 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  day = [
+    'domingo',
+    'segunda-feira',
+    'terça-feira',
+    'quarta-feira',
+    'quinta-feira',
+    'sexta-feira',
+    'sábado',
+  ];
+
+  month = [
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro',
+  ];
+  date: Date = new Date();
+
   constructor(private auth: AuthService) {}
   logout() {
     this.auth.logout();

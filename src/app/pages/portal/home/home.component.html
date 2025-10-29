@@ -1,3 +1,30 @@
-<p>home works!</p>
+<div class="row">
+	<div class="col s12">
+		<div class="card square gradient-45deg-blue-indigo">
+			<div class="card-content">
+				<h1 class="bold white-text no-margin">Bem-vindo ao Portal do Condômino!</h1>
+				<p class="mt-1">Acompanhe avisos, transparência financeira e mantenha-se informado.</p>
+				<br>
+				<p class="flex gap-10 flex-center">
+					<i class="material-symbols-outlined">calendar_today</i>
+					{{ `${day[date.getDay()]}, ${date.getDate()} de ${month[date.getMonth()]} de ${date.getFullYear()}` }}</p>
+			</div>
+		</div>
+	</div>
+</div>
 
-<div (click)="logout()">Sair</div>
+<div class="row">
+	<div class="col s12 m3 l4">
+		<div class="card card-stats">
+			<div class="card-header">
+				<div class="card-title flex flex-center gap-10 bold">
+					<i class="material-symbols-outlined" style="padding: 10px; border-radius: 100%; background: pink">trending_up</i>
+					entradas do mês
+				</div>
+			</div>
+			<div class="card-content">
+				<div class="card-stats-number"> R$ 0,00</div>
+			</div>
+		</div>
+	</div>
+</div>
