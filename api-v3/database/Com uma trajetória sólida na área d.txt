@@ -1,0 +1,20 @@
+Com uma trajetória sólida na área de TI, desenvolvi um profundo conhecimento na área de programação e infraestrutura, segurança e desenvolvimento de sistemas. Minha experiência inclui ainda:
+
+- competência para trabalhar na linha de comandos (CLI);
+- administração de servidores;
+- migrações de sistemas e aplicações;
+- implementação de softwares;
+- administração e gerenciamento de backups com backups manuais; acronis backup, veeam backup, entre outros;
+- virtualização com Proxmox, Ceph, VMWare etc;
+- otimização de hospedagem;
+- soluções avançadas com filtragem de spam;
+- análise de vulnerabilidades, entre outras atribuições.
+
+Com esse perfil, posso contribuir para o crescimento da empresa de diversas formas, por exemplo:
+
+- otimização de processos com habilidade para o desenvolvimento de sistemas personalizados para automatizar operações e reduzir custos;
+- segurança de infraestrutura com a gestão eficiente de servidores e segurança de dados, garantindo estabilidade e confiabilidade;
+- inovação tecnológica criando novos produtos e serviços digitais como aplicativos e sistemas personalizados;
+- atendimento ao cliente e escalabilidade com melhorias na experiência do usuário, integrando soluções tecnológicas como suporte para o crescimento sustentável.
+
+Com a experiência adquirida ao longo da minha jornada na área de TI, tenho certeza que trago conhecimentos que atendem às principais necessidades do setor; garantindo que a empresa se mantenha competitiva e preparada para os desafios tecnológicos atuais e posso ser um grande aliado neste processo, auxiliando-a com a crescente demanda por tecnologia no mercado.

@@ -22,13 +22,37 @@ body {
 	overflow: hidden;
 }
 
+body.loading::before,
+body.loading::after {
+	content: '';
+	position: absolute;
+	z-index: 9999999;
+}
+
+body.loading::before {
+	content: '';
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+body.loading::after {
+	content: 'Carregando...';
+	top: 50%;
+	left: 50%;
+	margin-top: -25px;
+	margin-left: -25px;
+}
+
 main {
 	height: calc(100vh - 64px);
 	overflow: hidden;
 }
 
 .btn {
-	gap: 5px;
+	gap: 10px;
 }
 
 .btn-flat {
@@ -63,7 +87,9 @@ main {
 header,
 .navbar-main,
 .navbar-list a,
-.navbar-list button {
+.navbar-list button,
+.navbar-list a i,
+.navbar-list button i {
 	height: 56px;
 	min-height: 54px;
 	line-height: 54px;
@@ -161,6 +187,38 @@ nav .brand-logo {
 .card-header .card-subtitle {
 	margin: 10px 0 16px;
 	color: #94a3b8;
+}
+
+/** Loading */
+#loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.1);
+	z-index: 9999;
+}
+
+.preloader-wrapper {
+	/* position: absolute; */
+	z-index: 9999;
+	/* top: 0; */
+	left: 0;
+	width: 20px;
+	height: 20px;
+	top: 50%;
+	left: 50%;
+	margin-top: -10px;
+	margin-right: -10px;
+}
+
+.circle-clipper .circle,
+.gap-patch .circle,
+.circle-clipper .circle {
+	width: 20px;
+	height: 20px;
+	border-color: #fff;
 }
 
 .input-field.square:not(.browser-default) input:not([type]),
@@ -278,6 +336,7 @@ label {
 
 ::-webkit-scrollbar {
 	width: 6px;
+	height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -438,7 +497,8 @@ button:focus {
 	margin: 0;
 }
 
-.modal .modal-footer {
+.modal .modal-footer,
+.modal.modal-fixed-footer .modal-footer {
 	padding: 0 24px;
 	display: flex;
 	justify-content: space-between;
@@ -456,16 +516,14 @@ button:focus {
 
 .raw-file {
 	padding: 20px;
+	width: 100%;
 	max-width: 100%;
+	height: calc(100vh - 360px);
 	position: relative;
 	background: #fff;
 	color: #000;
-	display: flex;
-	align-items: center;
-	place-content: center;
-	justify-content: center;
-	width: 100%;
-	flex: 1 100%;
+	overflow: auto;
+	text-wrap: auto;
 }
 
 .ng2-pdf-viewer-container {
@@ -609,4 +667,39 @@ button[type="reset"]:hover {
 		padding: 10px 0;
 	}
 
+}
+
+pdf-viewer {
+	width: 100%;
+	max-width: 100%;
+	height: calc(100vh - 330px);
+	// height: 100vh;
+	overflow: auto;
+	display: block;
+	object-fit: contain;
+}
+
+.pdfViewer {
+	width: 100% !important;
+	height: 100vh !important;
+}
+
+.pdfViewer .page {
+	margin: 0 auto;
+	aspect-ratio: 4 / 3.52;
+	object-fit: contain;
+	overflow: hidden;
+	width: 100% !important;
+	height: 100vh !important;
+}
+
+.pdf-container canvas {
+	max-width: 100% !important;
+	height: 100vh !important;
+}
+
+@media screen and (max-width: 992px) {
+	.pdfViewer .page {
+		aspect-ratio: 1 / 2.05;
+	}
 }

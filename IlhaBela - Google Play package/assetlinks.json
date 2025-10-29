@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "br.com.fstrongart.ilhabela.twa",
+        "sha256_cert_fingerprints": ["7C:C7:EF:2E:71:17:51:3B:3F:16:43:1C:A6:82:61:F2:06:98:2D:C7:52:1E:2D:85:AD:68:76:2B:38:F6:F2:51"]
+      }
+    }]

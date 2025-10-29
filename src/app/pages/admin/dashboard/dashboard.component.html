@@ -1,0 +1,80 @@
+<div class="row">
+
+	<!-- Lado esquerdo -->
+	<div class="col s12 m12 l9">
+
+		<div id="col-left">
+
+			<div class="row">
+				<div class="col s12 m6 l4">
+					<div class="card card-stats square border grey-border">
+						<div class="card-content">
+							<div class="card-stats-title">
+								<h5 class="card-title">Entradas</h5>
+								<i class="icon material-symbols-outlined">trending_down</i>
+							</div>
+							<h4 class="card-stats-number green-text text-darken-2">R$ {{ totalEntradas() | currencyFormat }}</h4>
+							<!-- <p class="card-stats-compare">
+												<i class="material-symbols-outlined">trending_up</i> +12% este mês
+											</p> -->
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m6 l4">
+					<div class="card card-stats square border grey-border">
+						<div class="card-content">
+							<div class="card-stats-title">
+								<h5 class="card-title">Saídas</h5>
+								<i class="icon material-symbols-outlined">trending_up</i>
+							</div>
+							<h4 class="card-stats-number red-text text-darken-2">R$ {{ totalSaidas() | currencyFormat }}</h4>
+							<!-- <p class="card-stats-compare">
+												<i class="material-symbols-outlined">trending_up</i> +12% este mês
+											</p> -->
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m6 l4">
+					<div class="card card-stats square border grey-border">
+						<div class="card-content">
+							<div class="card-stats-title">
+								<h5 class="card-title">Saldo</h5>
+								<i class="icon material-symbols-outlined">attach_money</i>
+							</div>
+							<h4 class="card-stats-number orange-text text-darken-2">R$ {{ totalSaldo() | currencyFormat }}</h4>
+							<!-- <p class="card-stats-compare">
+												<i class="material-symbols-outlined">trending_up</i> +12% este mês
+											</p> -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s12">
+					<div class="card square border grey-border">
+						<div class="card-content">
+							<app-calendar></app-calendar>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ENTRADAS -->
+			<app-entradas></app-entradas>
+
+			<!-- SAÍDAS -->
+			<app-saidas></app-saidas>
+
+		</div>
+
+	</div>
+
+	<!-- Lado direito -->
+	<div id="col-right" class="col s12 m12 l3">
+		<app-avisos></app-avisos>
+	</div>
+
+</div>

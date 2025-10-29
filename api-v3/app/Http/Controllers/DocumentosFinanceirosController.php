@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Casts\MoneyCast;
 use App\Http\Resources\DocumentosFinanceirosResource;
 use App\Models\DocumentosFinanceirosModel;
 use App\Rules\Money;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\AttachmentModel;
+use Illuminate\Validation\Rule;
 
 class DocumentosFinanceirosController extends Controller
 {
@@ -17,15 +17,32 @@ class DocumentosFinanceirosController extends Controller
 	 */
 	public function index(Request $request): JsonResponse
 	{
-		$tipo = $request->tipo ?? null;
-		$documentos = DocumentosFinanceirosModel::with('attachments')->where('tipo', $tipo)->get();
-		return response()->json(DocumentosFinanceirosResource::collection($documentos));
+		$query = DocumentosFinanceirosModel::with('attachments');
+
+		$query
+			->when($request->filled('tipo'), fn($q) => $q->where('tipo', $request->input('tipo')))
+			->when($request->filled('status'), fn($q) => $q->where('status', $request->input('status')))
+			->when($request->filled('cliente_id'), fn($q) => $q->where('cliente_id', $request->input('cliente_id')))
+			->when($request->filled('periodo'), fn($q) => $q->whereRaw('DATE_FORMAT(data_vencimento, "%Y-%m") = ?', [$request->input('periodo')]))
+			->when(
+				$request->filled('search'),
+				fn($q) =>
+				$q->where(function ($sub) use ($request) {
+					$search = '%' . $request->input('search') . '%';
+					$sub->where('descricao', 'LIKE', $search)->orWhere('documento', 'LIKE', $search);
+				})
+			);
+		$documentos = $query->orderBy('data_vencimento', 'desc')->get();
+
+		return response()->json(
+			DocumentosFinanceirosResource::collection($documentos)
+		);
 	}
 
 	/**
 	 * Armazena um novo documento financeiro.
 	 */
-	public function store(Request $request, MoneyCast $money): JsonResponse
+	public function store(Request $request): JsonResponse
 	{
 
 		$validated = $request->validate([
@@ -34,13 +51,13 @@ class DocumentosFinanceirosController extends Controller
 			'valor'           => ['required', new Money],
 			'data_vencimento' => 'required|date',
 			'status'          => 'required',
-			'comprovante'     => 'required',
+			'comprovante'     => Rule::requiredIf($request->tipo === 'pagar'),
 			'observacoes'     => 'nullable',
 		]);
 
 		$documento = DocumentosFinanceirosModel::create($validated);
 
-		if ($validated['comprovante']) {
+		if (isset($validated['comprovante']) && $validated['comprovante']) {
 			AttachmentModel::add($request->file('comprovante'), $documento->id, 'transaction');
 		}
 

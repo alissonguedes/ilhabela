@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -34,12 +35,12 @@ class AuthController extends Controller
 			'name'     => $request->name,
 			'email'    => $request->email,
 			'password' => Hash::make($request->password),
+			'is_admin' => $request->is_admin,
 		]);
 
 		$token = JWTAuth::fromUser($user);
 
 		return $this->respondWithToken($token);
-
 	}
 
 	/**
@@ -48,7 +49,7 @@ class AuthController extends Controller
 	public function me()
 	{
 		//
-		return response()->json(auth()->user());
+		return response(new UserResource(auth()->user()));
 	}
 
 	/**
@@ -83,5 +84,4 @@ class AuthController extends Controller
 			'expires_in'   => auth('api')->factory()->getTTL() * 20160,
 		]);
 	}
-
 }

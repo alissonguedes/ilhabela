@@ -7,19 +7,43 @@ declare const M: any;
   providedIn: 'root',
 })
 export class AuthService extends HttpService {
+  private user = {
+    authenticated: false,
+    group: '', // admin | condomino
+  };
+
   isSubmitting = signal(false);
 
   login(username: string, password: string) {
-    let data = { email: username, password: password };
+    this.isSubmitting.set(true);
+    const data = { email: username, password: password };
 
     this.post(`login`, data).subscribe({
       next: (res: any) => {
-        let user = res.user;
+        const user = res.user;
+
+        // salva informações básicas
         localStorage.setItem('id', user.id);
         localStorage.setItem('username', user.name);
         localStorage.setItem('email', user.email);
         localStorage.setItem('token', res.access_token);
-        this.route.navigate(['/dashboard']);
+
+        // adiciona grupo (exemplo: 'admin' ou 'condomino')
+        // backend deve enviar ou você pode definir regra local
+        const group = user.group || (user.is_admin ? 'admin' : 'condomino');
+        localStorage.setItem('group', group);
+
+        this.user = {
+          authenticated: true,
+          group,
+        };
+
+        // redireciona conforme o grupo
+        const redirectTo = group === 'admin' ? '/dashboard' : '/portal';
+
+        this.route.navigate([redirectTo], { replaceUrl: true }).then(() => {
+          this.isSubmitting.set(false);
+        });
       },
       error: (error: any) => {
         console.error('There was an error!', error);
@@ -31,14 +55,39 @@ export class AuthService extends HttpService {
   }
 
   logout() {
+    const body = document.querySelector('body');
     this.post('logout', null).subscribe({
-      next: (res) => {
+      next: () => {
         localStorage.clear();
         this.route.navigate(['/login']);
+        body?.classList.remove('loading');
+        this.user = { authenticated: false, group: '' };
       },
-      error: (err) => {
+      error: () => {
         M.toast({ html: 'Erro ao tentar executar o recurso.' });
       },
     });
+  }
+
+  // 🔹 Recupera o usuário do localStorage
+  getUser() {
+    const data = {
+      id: localStorage.getItem('id'),
+      username: localStorage.getItem('username'),
+      email: localStorage.getItem('email'),
+      group: localStorage.getItem('group') || '',
+      authenticated: !!localStorage.getItem('token'),
+    };
+    return data;
+  }
+
+  // 🔹 Verifica se há sessão válida
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  // 🔹 Retorna o grupo do usuário (admin | condomino)
+  getUserGroup(): string {
+    return localStorage.getItem('group') || '';
   }
 }

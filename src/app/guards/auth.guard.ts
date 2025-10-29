@@ -1,24 +1,41 @@
-import { inject } from '@angular/core';
-import { Router, CanActivateFn } from '@angular/router';
-import { HttpService } from '../services/http.service';
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
-declare const M: any;
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) {}
 
-async function isAuthenticated(): Promise<boolean> {
-  const http = inject(HttpService);
-  const router = inject(Router);
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | UrlTree {
+    if (!this.auth.isAuthenticated()) {
+      return this.router.createUrlTree(['/login']);
+    }
 
-  try {
-    const response = await http.get<any>('me').toPromise();
-    return response.authorized;
-  } catch (e) {
-    M.toast({ html: 'Sessão expirada. Faça login novamente.' });
-    localStorage.clear();
-    router.navigate(['/login']);
-    return false;
+    const group = this.auth.getUserGroup();
+
+    if (group === 'admin') {
+      // admin tem acesso total
+      return true;
+    }
+
+    if (group === 'condomino') {
+      // condomino só acessa portal
+      if (state.url.startsWith('/portal')) return true;
+      // caso tente acessar dashboard → força redirecionamento
+      return this.router.createUrlTree(['/portal']);
+    }
+
+    return this.router.createUrlTree(['/login']);
   }
 }
-
-export const AuthGuard: CanActivateFn = async (route, state) => {
-  return await isAuthenticated();
-};

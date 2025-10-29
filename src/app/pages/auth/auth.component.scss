@@ -9,3 +9,23 @@ body {
 #formulario .card {
 	border-radius: 10px;
 }
+
+.preloader-wrapper {
+	/* position: absolute; */
+	z-index: 9999;
+	/* top: 0; */
+	left: 0;
+	width: 14px;
+	height: 14px;
+	top: 50%;
+	margin-top: -7px;
+	margin-right: 7px;
+}
+
+.circle-clipper .circle,
+.gap-patch .circle,
+.circle-clipper .circle {
+	width: 14px;
+	height: 14px;
+	border-color: #fff;
+}

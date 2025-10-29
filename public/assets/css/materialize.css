@@ -1234,10 +1234,6 @@ ul.list-type-bullet {
 	font-weight: inherit;
 }
 
-.btn .material-symbols-outlined~span {
-	margin-left: 5px;
-}
-
 .btn.outlined {
 	border: 2px solid var(--grey-darken-1);
 	background-color: transparent !important;

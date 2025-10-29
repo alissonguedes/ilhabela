@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
   IFormComponent,
@@ -41,6 +41,8 @@ export class AuthComponent extends Form implements OnInit, IFormComponent {
     if (token) {
       this.route.navigate(['/dashboard']);
     }
+    let body = document.querySelector('body');
+    body?.classList.remove('loading');
   }
 
   openForm(): void {}
