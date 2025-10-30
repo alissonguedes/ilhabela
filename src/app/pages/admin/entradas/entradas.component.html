@@ -27,14 +27,33 @@
 								<td class="center-align">{{ entrada.data_vencimento.toString().substring(0, 10).split('-').reverse().join('/') }}</td>
 								<td class="left-align">{{ entrada.descricao }}</td>
 								<td class="center-align">R$ {{ entrada.valor | currencyFormat }}</td>
-								<td class="acoes center-align" *ngIf="group === 'admin'">
+								<!-- <td class="acoes center-align" *ngIf="group === 'admin'">
 									<button type="button" class="btn btn-small rounded waves-effect modal-close blue" (click)="entradasForm.edit(entrada.id)">
 										<i class="material-symbols-outlined">edit_square</i>
 									</button>
 									<button type="button" class="btn btn-small rounded waves-effect red" (click)="entradasForm.removeEntrada(entrada.id)">
 										<i class="material-symbols-outlined">delete</i>
 									</button>
-								</td>
+								</td> -->
+								<ng-container *ngIf="group === 'admin';">
+									<td class="acoes center-align">
+										<div #dropdown class="btn btn-small rounded waves-effect waves-light transparent z-depth-0" [attr.data-target]="`saida-dropdown-actions-${entrada.id}`"><i class="material-symbols-outlined">more_vert</i></div>
+										<ul class="dropdown-content" id="saida-dropdown-actions-{{ entrada.id }}" style="min-width: 215px;">
+											<li>
+												<a (click)="entradasForm.edit(entrada.id)">
+													<i class="material-symbols-outlined">edit_square</i>
+													<span>Editar</span>
+												</a>
+											</li>
+											<li>
+												<a (click)="entradasForm.removeEntrada(entrada.id)">
+													<i class="material-symbols-outlined">delete</i>
+													<span>Excluir</span>
+												</a>
+											</li>
+										</ul>
+									</td>
+								</ng-container>
 							</tr>
 						</ng-container>
 						<ng-template #noResults>

@@ -17,6 +17,7 @@ class UserResource extends JsonResource
 		return [
 			'id' => $this->id,
 			'nome' => $this->name,
+			'is_admin' => (bool) $this->is_admin,
 			'grupo' => $this->is_admin ? 'admin' : 'condomino'
 		];
 	}

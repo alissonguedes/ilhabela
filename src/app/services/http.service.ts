@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HttpService {
   private API_TOKEN = '';
-    private baseUrl = 'https://ilhabela.fstrongart.com.br/api/v3';
-//   private baseUrl = 'http://localhost/ilhabela-v3/api-v3/public/api/v3';
+  private baseUrl = 'https://ilhabela.fstrongart.com.br/api/v3';
+  //   private baseUrl = 'http://localhost/ilhabela-v3/api-v3/public/api/v3';
   // private baseUrl = 'http://localhost/controle-financeiro-v3/api-v3/public/api/v3';
 
   private get userId() {

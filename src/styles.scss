@@ -25,7 +25,7 @@ body {
 body.loading::before,
 body.loading::after {
 	content: '';
-	position: absolute;
+	position: fixed;
 	z-index: 9999999;
 }
 

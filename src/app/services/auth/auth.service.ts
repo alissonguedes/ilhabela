@@ -33,12 +33,14 @@ export class AuthService extends HttpService {
         const group = user.group || (user.is_admin ? 'admin' : 'condomino');
         localStorage.setItem('group', group);
 
+        console.log('Is admin: ', user.is_admin, typeof user.is_admin);
+
         this.user = {
           authenticated: true,
           group,
         };
 
-        // redireciona conforme o grupo
+        // // redireciona conforme o grupo
         const redirectTo = group === 'admin' ? '/dashboard' : '/portal';
 
         this.route.navigate([redirectTo], { replaceUrl: true }).then(() => {

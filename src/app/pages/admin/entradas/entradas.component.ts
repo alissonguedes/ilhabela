@@ -1,12 +1,15 @@
 import {
+  AfterViewInit,
   Component,
   effect,
   ElementRef,
   inject,
   OnDestroy,
   OnInit,
+  QueryList,
   signal,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -31,8 +34,9 @@ declare const M: any;
   templateUrl: './entradas.component.html',
   styleUrl: './entradas.component.scss',
 })
-export class EntradasComponent {
+export class EntradasComponent implements AfterViewInit {
   @ViewChild(EntradasForm) entradasForm!: EntradasForm;
+  @ViewChildren('dropdown') dropdown!: QueryList<ElementRef>;
 
   entradas$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
@@ -44,5 +48,19 @@ export class EntradasComponent {
 
   constructor(private auth: AuthService) {
     this.group = this.auth.getUserGroup();
+  }
+
+  ngAfterViewInit() {
+    this.dropdown.changes.subscribe(() => {
+      this.initDropdowns();
+    });
+  }
+
+  private initDropdowns() {
+    const dropdownElem = this.dropdown;
+    const config = { alignment: 'right', container: 'body' };
+    dropdownElem.forEach((item: ElementRef<any>) => {
+      M.Dropdown.init(item.nativeElement, config);
+    });
   }
 }

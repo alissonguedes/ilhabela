@@ -5,7 +5,7 @@ import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
 import { AvisosComponent } from '../../admin/avisos/avisos.component';
 import { EntradasComponent } from '../../admin/entradas/entradas.component';
 import { SaidasComponent } from '../../admin/saidas/saidas.component';
-
+import { CalendarComponent } from '../../../shared/components/calendar/calendar.component';
 @Component({
   selector: 'app-home',
   imports: [
@@ -13,6 +13,7 @@ import { SaidasComponent } from '../../admin/saidas/saidas.component';
     AvisosComponent,
     EntradasComponent,
     SaidasComponent,
+    CalendarComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
